@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bean There Cafe - BrewMatch</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="cafe_profile.css" />
+  </head>
+  <body>
+    <div class="profile-container">
+      <!-- 1. Header Navigation -->
+      <header class="page-header">
+        <button class="back-btn" aria-label="Back to all results">
+          <span class="material-icons">arrow_back</span>
+        </button>
+      </header>
+
+      <!-- 2. Photo Gallery -->
+      <section class="photo-gallery">
+        <div class="gallery-container">
+          <img
+            src="assets/cafes/bean_there_cafe.jpg"
+            alt="Cafe interior with bikes and menu board"
+            class="gallery-image"
+          />
+          <img
+            src="assets/cafes/bean_there_cafe-1.jpg"
+            alt="Coffee preparation details"
+            class="gallery-image"
+          />
+          <img
+            src="assets/cafes/bean_there_cafe-2.jpg"
+            alt="Cafe interior with lamps and tables"
+            class="gallery-image"
+          />
+        </div>
+        <div class="gallery-indicator">
+          <span class="indicator-dot active"></span>
+          <span class="indicator-dot"></span>
+          <span class="indicator-dot"></span>
+        </div>
+      </section>
+
+      <!-- 3. Cafe Information -->
+      <section class="cafe-info">
+        <div class="primary-info">
+          <h2 class="cafe-name">Bean There Cafe</h2>
+          <div class="location-info">
+            <span class="material-icons">location_on</span>
+            <span>Oakville · 1 mile</span>
+          </div>
+        </div>
+
+        <div class="rating-info">
+          <div class="rating-beans">
+            <span class="bean-icon">☕</span>
+            <span class="bean-icon">☕</span>
+            <span class="bean-icon">☕</span>
+            <span class="bean-icon">☕</span>
+          </div>
+          <span class="rating-text">4.5 (22 reviews)</span>
+        </div>
+
+        <div class="status-info">
+          <span class="status-closed">Closed</span>
+          <span class="status-time">until 9am tomorrow</span>
+        </div>
+
+        <div class="action-buttons">
+          <button class="action-btn" aria-label="More options">
+            <span class="material-icons">more_horiz</span>
+          </button>
+          <button class="action-btn" aria-label="Save to collection">
+            <span class="material-icons">bookmark_border</span>
+          </button>
+          <button class="action-btn" aria-label="Share">
+            <span class="material-icons">share</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. Feature Tags -->
+      <section class="feature-tags">
+        <h3 class="section-title">Feature Tag</h3>
+        <div class="tags-scroll-container">
+          <div class="tags-wrapper">
+            <span class="tag">quiet&cozy</span>
+            <span class="tag">Good for work/study</span>
+            <span class="tag">pour-over coffee</span>
+            <span class="tag">Good for breakfast/brunch/dessert</span>
+            <span class="tag">non-coffee options</span>
+          </div>
+          <div class="scroll-indicator"></div>
+        </div>
+      </section>
+
+      <!-- 5. Menu and Reviews Section -->
+      <section class="content-tabs">
+        <div class="tabs-header">
+          <button class="tab-btn active">Menu</button>
+          <button class="tab-btn">Reviews</button>
+        </div>
+
+        <div class="tab-content">
+          <!-- Menu Content -->
+          <div class="menu-view active">
+            <div class="menu-categories">
+              <button class="category-btn">Specials</button>
+              <button class="category-btn active">Coffee</button>
+              <button class="category-btn">Tea</button>
+            </div>
+
+            <div class="menu-items">
+              <article class="menu-item">
+                <img
+                  src="assets/cafes/latte-1.jpg"
+                  alt="Latte with latte art"
+                  class="item-image"
+                />
+                <div class="item-details">
+                  <h4 class="item-name">Latte</h4>
+                  <p class="item-price">$3.4</p>
+                </div>
+                <button class="favorite-btn" aria-label="Add to favorites">
+                  <span class="material-icons">star</span>
+                </button>
+              </article>
+
+              <article class="menu-item">
+                <img
+                  src="assets/cafes/americano-1.jpg"
+                  alt="Americano coffee"
+                  class="item-image"
+                />
+                <div class="item-details">
+                  <h4 class="item-name">Americano</h4>
+                  <p class="item-price">$2.2</p>
+                </div>
+                <button class="favorite-btn" aria-label="Add to favorites">
+                  <span class="material-icons">star</span>
+                </button>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+          <span class="material-icons">explore</span>
+          <span>Explore</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-icons">coffee</span>
+          <span>Recommendations</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-icons">person</span>
+          <span>You</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src="cafe_profile.js"></script>
+  </body>
+</html>
