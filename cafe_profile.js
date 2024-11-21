@@ -2,104 +2,155 @@ class PhotoGallery {
     constructor() {
         this.container = document.querySelector('.gallery-container');
         this.images = document.querySelectorAll('.gallery-image');
-        this.indicators = document.querySelectorAll('.indicator-dot');
-        
-        // Initialize states
-        this.isDragging = false;
-        this.startX = 0;
-        this.scrollLeft = 0;
         this.currentIndex = 0;
-
+        this.maxIndex = this.images.length - 1;
+        
+        this.overlay = document.querySelector('.photo-overlay');
+        this.enlargedPhoto = document.querySelector('.enlarged-photo');
+        this.isEnlarged = false;
+        
         this.init();
     }
 
     init() {
-        // Mouse events
-        this.container.addEventListener('mousedown', (e) => {
-            this.isDragging = true;
-            this.container.style.cursor = 'grabbing';
-            this.startX = e.pageX - this.container.offsetLeft;
-            this.scrollLeft = this.container.scrollLeft;
+        // Add hover areas to HTML
+        this.addHoverAreas();
+        
+        // Listen for scroll end event
+        this.container.addEventListener('scrollend', () => {
+            this.updateCurrentIndex();
         });
 
-        this.container.addEventListener('mousemove', (e) => {
-            if (!this.isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - this.container.offsetLeft;
-            const walk = (x - this.startX);
-            this.container.scrollLeft = this.scrollLeft - walk;
-        });
+        // Touch event support
+        let startX = 0;
+        let isDragging = false;
 
-        const stopDragging = () => {
-            this.isDragging = false;
-            this.container.style.cursor = 'grab';
-            this.snapToClosestImage();
-        };
-
-        this.container.addEventListener('mouseup', stopDragging);
-        this.container.addEventListener('mouseleave', stopDragging);
-
-        // Touch events
         this.container.addEventListener('touchstart', (e) => {
-            this.isDragging = true;
-            this.startX = e.touches[0].pageX - this.container.offsetLeft;
-            this.scrollLeft = this.container.scrollLeft;
+            startX = e.touches[0].clientX;
+            isDragging = true;
         });
 
         this.container.addEventListener('touchmove', (e) => {
-            if (!this.isDragging) return;
-            const x = e.touches[0].pageX - this.container.offsetLeft;
-            const walk = (x - this.startX);
-            this.container.scrollLeft = this.scrollLeft - walk;
+            if (!isDragging) return;
+            const x = e.touches[0].clientX;
+            const walk = startX - x;
+            this.container.scrollLeft += walk;
+            startX = x;
         });
 
         this.container.addEventListener('touchend', () => {
-            this.isDragging = false;
+            isDragging = false;
             this.snapToClosestImage();
         });
 
-        // Indicator click events
-        this.indicators.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                this.scrollToImage(index);
+        // Add click event handling
+        this.images.forEach(img => {
+            img.addEventListener('click', (e) => {
+                this.togglePhotoEnlargement(e.target);
             });
         });
 
-        // Listen for scroll to update indicators
-        this.container.addEventListener('scroll', () => {
-            this.updateIndicators();
+        // Add overlay click event
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target !== this.enlargedPhoto) {
+                this.closeEnlargedPhoto();
+            }
         });
+
+        // Add ESC key close functionality
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isEnlarged) {
+                this.closeEnlargedPhoto();
+            }
+        });
+
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    addHoverAreas() {
+        const gallery = document.querySelector('.photo-gallery');
+        
+        const leftArea = document.createElement('div');
+        leftArea.className = 'gallery-hover-area gallery-hover-left';
+        
+        const rightArea = document.createElement('div');
+        rightArea.className = 'gallery-hover-area gallery-hover-right';
+        
+        leftArea.addEventListener('mouseenter', () => {
+            if (this.currentIndex > 0) {
+                this.scrollToPrevious();
+            }
+        });
+        
+        rightArea.addEventListener('mouseenter', () => {
+            if (this.currentIndex < this.maxIndex) {
+                this.scrollToNext();
+            }
+        });
+        
+        gallery.appendChild(leftArea);
+        gallery.appendChild(rightArea);
+    }
+
+    updateCurrentIndex() {
+        const scrollPosition = this.container.scrollLeft;
+        const imageWidth = this.images[0].offsetWidth + parseInt(getComputedStyle(this.container).gap);
+        this.currentIndex = Math.round(scrollPosition / imageWidth);
+    }
+
+    scrollToPrevious() {
+        if (this.currentIndex > 0) {
+            this.scrollToImage(this.currentIndex - 1);
+        }
+    }
+
+    scrollToNext() {
+        if (this.currentIndex < this.maxIndex) {
+            this.scrollToImage(this.currentIndex + 1);
+        }
+    }
+
+    scrollToImage(index) {
+        // Ensure index is within valid range
+        if (index < 0) index = 0;
+        if (index > this.maxIndex) index = this.maxIndex;
+
+        const imageWidth = this.images[0].offsetWidth + parseInt(getComputedStyle(this.container).gap);
+        this.container.scrollTo({
+            left: imageWidth * index,
+            behavior: 'smooth'
+        });
+        this.currentIndex = index;
     }
 
     snapToClosestImage() {
-        const imageWidth = this.container.offsetWidth;
+        const imageWidth = this.images[0].offsetWidth + parseInt(getComputedStyle(this.container).gap);
         const scrollPosition = this.container.scrollLeft;
         const index = Math.round(scrollPosition / imageWidth);
         this.scrollToImage(index);
     }
 
-    scrollToImage(index) {
-        if (index < 0) index = 0;
-        if (index >= this.images.length) index = this.images.length - 1;
-
-        const imageWidth = this.container.offsetWidth;
-        this.container.scrollTo({
-            left: imageWidth * index,
-            behavior: 'smooth'
-        });
-
-        this.currentIndex = index;
-        this.updateIndicators();
+    togglePhotoEnlargement(imageElement) {
+        if (!this.isEnlarged) {
+            this.enlargePhoto(imageElement);
+        } else {
+            this.closeEnlargedPhoto();
+        }
     }
 
-    updateIndicators() {
-        const imageWidth = this.container.offsetWidth;
-        const scrollPosition = this.container.scrollLeft;
-        const currentIndex = Math.round(scrollPosition / imageWidth);
+    enlargePhoto(imageElement) {
+        this.enlargedPhoto.src = imageElement.src;
+        this.enlargedPhoto.alt = imageElement.alt;
+        this.overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        this.isEnlarged = true;
+    }
 
-        this.indicators.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
-        });
+    closeEnlargedPhoto() {
+        this.overlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        this.isEnlarged = false;
     }
 }
 

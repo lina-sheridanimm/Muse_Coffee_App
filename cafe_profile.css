@@ -60,64 +60,138 @@ body {
 .photo-gallery {
   position: relative;
   width: 100%;
+  height: 280px;
   overflow: hidden;
+  padding: 0 var(--spacing-md);
 }
 .gallery-container {
   display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  width: 100%;
+  gap: var(--spacing-md);
   scroll-behavior: smooth;
-  cursor: grab;
-  -webkit-user-select: none;
-  user-select: none;
-  touch-action: pan-x;
+  width: calc(100% + var(--spacing-md));
+  margin-right: calc(-1 * var(--spacing-md));
 }
+
 .gallery-container::-webkit-scrollbar {
   display: none;
 }
 .gallery-image {
-  width: 100%;
-  min-width: 100%;
+  width: 280px;
   height: 280px;
   flex-shrink: 0;
   object-fit: cover;
-  scroll-snap-align: center;
-  pointer-events: none;
+  border-radius: var(--radius-md);
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
-.gallery-indicator {
+
+.gallery-hover-area {
   position: absolute;
-  bottom: var(--spacing-md);
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  height: 100%;
+  width: 30%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.gallery-hover-left {
+  left: var(--spacing-md);
+}
+
+.gallery-hover-right {
+  right: var(--spacing-md);
+}
+
+/* Modify the mask layer and enlarged photo styles */
+.photo-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-overlay.active {
   display: flex;
-  gap: var(--spacing-xs);
-  background: rgba(0, 0, 0, 0.3);
-  padding: var(--spacing-xs);
-  border-radius: var(--radius-lg);
 }
-.indicator-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-background);
-  opacity: 0.6;
+
+.overlay-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(3px);
 }
-.indicator-dot.active {
+
+.photo-overlay.active .overlay-background {
   opacity: 1;
+}
+
+.enlarged-photo-container {
+  position: relative;
+  z-index: 1001;
+  width: 340px;
+  height: 340px;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.photo-overlay.active .enlarged-photo-container {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.enlarged-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* edit gallery image hover effect */
+.gallery-image {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.02);
 }
 
 /* / Cafe Information / */
 .cafe-info {
   padding: var(--spacing-md);
 }
+
+/* Primary Info Row */
+.primary-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
 .cafe-name {
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: var(--spacing-xs);
+  margin: 0;
 }
+
 .location-info {
   display: flex;
   align-items: center;
@@ -125,38 +199,60 @@ body {
   color: var(--color-text-secondary);
   font-size: 14px;
 }
+
+/* Secondary Info and Actions Row */
+.info-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.secondary-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
 .rating-info {
-  margin: var(--spacing-md) 0;
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
 }
+
 .rating-beans {
   display: flex;
   gap: 2px;
 }
+
 .bean-icon {
   color: var(--color-secondary);
 }
+
 .rating-text {
   color: var(--color-text-secondary);
   font-size: 14px;
 }
+
 .status-info {
-  margin: var(--spacing-md) 0;
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: 14px;
 }
+
 .status-closed {
   color: var(--color-closed);
-  font-weight: 500;
+  font-size: 14px;
 }
+
 .status-time {
   color: var(--color-text-secondary);
 }
+
 .action-buttons {
   display: flex;
-  justify-content: flex-end;
   gap: var(--spacing-sm);
 }
+
 .action-btn {
   width: 40px;
   height: 40px;
@@ -168,6 +264,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.action-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+.category-btn:hover {
+  opacity: 0.9;
+}
+.nav-item:hover {
+  color: var(--color-secondary);
 }
 
 /* / Feature Tags / */
@@ -285,6 +392,13 @@ body {
   cursor: pointer;
 }
 
+.menu-view {
+  display: none;
+}
+.menu-view.active {
+  display: block;
+}
+
 /* Bottom navigation */
 .bottom-nav {
   margin-top: auto;
@@ -320,20 +434,12 @@ body {
   margin-top: 4px;
 }
 
-/* / Hover Effects / */
-.action-btn:hover {
-  background: var(--color-primary);
-  color: var(--color-background);
-}
-.category-btn:hover {
-  opacity: 0.9;
-}
-.nav-item:hover {
-  color: var(--color-secondary);
+.nav-item .material-icons {
+  font-size: 28px;
 }
 
 /* / Media Query for smaller screens / */
-@media (max-width: 390px) {
+/* @media (max-width: 390px) {
   .profile-container {
     width: 100%;
     height: 100vh;
@@ -341,33 +447,21 @@ body {
   .bottom-nav {
     width: 100%;
   }
-}
+} */
 
 /* / Add missing icon styles / */
-.material-icons {
+/* .material-icons {
   font-size: 24px;
   line-height: 1;
-}
+} */
+
 /* / Add scroll indicator styles / */
-.scroll-indicator {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 24px;
-  background: linear-gradient(to right, transparent, var(--color-background));
-  pointer-events: none;
-}
-
-/* / Add menu view styles / */
-.menu-view {
-  display: none;
-}
-.menu-view.active {
-  display: block;
-}
-
-/* Add bottom navigation icon styles */
-.nav-item .material-icons {
-  font-size: 28px;
-}
+/* .scroll-indicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    background: linear-gradient(to right, transparent, var(--color-background));
+    pointer-events: none;
+} */

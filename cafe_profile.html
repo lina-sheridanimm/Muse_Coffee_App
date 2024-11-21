@@ -38,15 +38,11 @@
             class="gallery-image"
           />
         </div>
-        <div class="gallery-indicator">
-          <span class="indicator-dot active"></span>
-          <span class="indicator-dot"></span>
-          <span class="indicator-dot"></span>
-        </div>
       </section>
 
       <!-- 3. Cafe Information -->
       <section class="cafe-info">
+        <!-- Primary Info: Name and Location in one row -->
         <div class="primary-info">
           <h2 class="cafe-name">Bean There Cafe</h2>
           <div class="location-info">
@@ -55,31 +51,35 @@
           </div>
         </div>
 
-        <div class="rating-info">
-          <div class="rating-beans">
-            <span class="bean-icon">☕</span>
-            <span class="bean-icon">☕</span>
-            <span class="bean-icon">☕</span>
-            <span class="bean-icon">☕</span>
+        <!-- Secondary Info and Action Buttons in one row -->
+        <div class="info-actions-row">
+          <div class="secondary-info">
+            <div class="rating-info">
+              <div class="rating-beans">
+                <span class="bean-icon">☕</span>
+                <span class="bean-icon">☕</span>
+                <span class="bean-icon">☕</span>
+                <span class="bean-icon">☕</span>
+              </div>
+              <span class="rating-text">4.5 (22 reviews)</span>
+            </div>
+            <div class="status-info">
+              <span class="status-closed">Closed</span>
+              <span class="status-time">until 9am tomorrow</span>
+            </div>
           </div>
-          <span class="rating-text">4.5 (22 reviews)</span>
-        </div>
 
-        <div class="status-info">
-          <span class="status-closed">Closed</span>
-          <span class="status-time">until 9am tomorrow</span>
-        </div>
-
-        <div class="action-buttons">
-          <button class="action-btn" aria-label="More options">
-            <span class="material-icons">more_horiz</span>
-          </button>
-          <button class="action-btn" aria-label="Save to collection">
-            <span class="material-icons">bookmark_border</span>
-          </button>
-          <button class="action-btn" aria-label="Share">
-            <span class="material-icons">share</span>
-          </button>
+          <div class="action-buttons">
+            <button class="action-btn" aria-label="More options">
+              <span class="material-icons">more_horiz</span>
+            </button>
+            <button class="action-btn" aria-label="Save to collection">
+              <span class="material-icons">bookmark_border</span>
+            </button>
+            <button class="action-btn" aria-label="Share">
+              <span class="material-icons">share</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -164,6 +164,14 @@
           <span>You</span>
         </a>
       </nav>
+    </div>
+
+    <!-- Add a mask layer to the body -->
+    <div class="photo-overlay">
+      <div class="overlay-background"></div>
+      <div class="enlarged-photo-container">
+        <img class="enlarged-photo" src="" alt="Enlarged cafe photo" />
+      </div>
     </div>
 
     <script src="cafe_profile.js"></script>
