@@ -1,4 +1,4 @@
-{
+[{
     "id": 1,
     "name": "Bean There Cafe",
     "location": {
@@ -22,4 +22,6 @@
         "Good for breakfast/brunch/dessert",
         "non-coffee options"
     ]
-}
+}]
+
+
