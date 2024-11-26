@@ -1,19 +1,18 @@
 <?php
-// Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "root";
-$dbname = "brewmatch"; // Replace with your database name
+$dbname = "brewmatch";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Initialize variables
+
 $distance = '';
 $ambience = '';
 $selected_meals = [];
@@ -21,7 +20,7 @@ $selected_drinks = [];
 $selected_good_for = [];
 $selected_amenities = [];
 
-// Base query
+
 $sql = "SELECT DISTINCT bc.* 
         FROM brewmatch_cafes bc
         LEFT JOIN cafe_meals cm ON bc.cafe_id = cm.cafe_id
@@ -77,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $result = $conn->query($sql);
 
-// Hardcoded options for filters
+// Hardcoded options for filters for now
 $meal_options = ["Good for Breakfast", "Good for Brunch", "Good for Lunch", "Good for Dessert"];
 $drink_options = ["Pour-Over Coffee", "Non-Coffee Options", "Hand-Drip Options", "Seasonal/Themed Menu"];
 $good_for_options = ["Pet", "Kids", "Groups", "Event", "Study", "Work"];
@@ -211,6 +210,5 @@ $amenity_options = ["Offers Delivery", "Offers Takeout", "Takes Reservation", "F
 </html>
 
 <?php
-// Close the database connection
 $conn->close();
 ?>
