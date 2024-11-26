@@ -2,7 +2,7 @@ function personalityQuiz() {
     
     const questions = [
         {
-            question: '"Before we begin," the barista says, gesturing to gour customers in the café, "tell me, which scene catches your attention?"',
+            question: '"Before we begin," the barista says, gesturing to four customers in the café, "tell me, which scene catches your attention?"',
             options: [
                 {ID: "A", choice: "a. A lively board game group, lost in laughter over cold coffee"},
                 {ID: "B", choice: "b. A solitary artist sketching by rainy window with a ceramic mug"},
