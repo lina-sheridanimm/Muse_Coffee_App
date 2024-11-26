@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Urbanist&display=swap" rel="stylesheet">
+    <title>E-mail Login</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="app">
+        <div class="login-container">
+            <!-- Back Button -->
+            <div class="back-button">
+                <button id="backBtn" class="back-arrow">
+                    <img src="back.png" alt="Back" class="back-icon">
+                </button>
+            </div>
+
+            <!-- Login Content -->
+            <div class="login-content">
+                <h1 class="login-title">Welcome<br>Back!</h1>
+
+                <form id="loginForm" class="login-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Log in</button>
+                </form>
+
+                <!-- Sign Up Link -->
+                <div class="signup-link">
+                    Don't have an account? <a href="signup.html" class="accent-link">Sign up Now</a>
+                </div>
+            </div>
+
+            <!-- Error Dialog -->
+            <div id="errorDialog" class="error-dialog" style="display: none;">
+                <div class="error-content">
+                    <p>Oops, looks like you have<br>the wrong email address.</p>
+                    <button id="okButton" class="ok-button">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="emaillogin.js"></script>
+</body>
+</html>
