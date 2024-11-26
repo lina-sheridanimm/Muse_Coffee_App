@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrewMatch - UserProfile</title>
+    <link rel="stylesheet" href="user_profile.css" />
+  </head>
+  <body>
+    <div class="profile-container arabica-adventurer">
+      <!-- Top Navigation -->
+      <nav class="top-nav">
+        <button class="back-btn">
+          <span class="material-icons">arrow_back</span>
+        </button>
+        <button class="settings-btn">
+          <span class="material-icons">settings</span>
+        </button>
+      </nav>
+
+      <!-- User Profile Section -->
+      <div class="user-info">
+        <div class="profile-banner">
+          <div class="profile-image-container">
+            <img
+              src="assets/users/Nancy-zhu-photo.png"
+              alt="Profile picture"
+              class="profile-image"
+            />
+            <div class="badge">
+              <img
+                src="assets/users/Arabica-badge.png"
+                alt="Arabica Adventurer badge"
+                class="badge-image"
+              />
+            </div>
+          </div>
+        </div>
+        <h1 class="username">Nancy-zhu</h1>
+        <p class="bio">Treat cafés as my fav island.</p>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="message-btn">Message</button>
+          <button class="edit-profile-btn">Edit Profile</button>
+        </div>
+      </div>
+
+      <!-- Tabs Section -->
+      <div class="tabs-section">
+        <div class="tabs">
+          <button class="tab active">Reviews</button>
+          <button class="tab">Saved</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <div class="review-grid">
+            <div class="review-card"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav">
+        <a href="#" class="nav-item">
+          <span class="material-icons">explore</span>
+          <span>Explore</span>
+        </a>
+        <a href="#" class="nav-item">
+          <span class="material-icons">coffee</span>
+          <span>Recommendations</span>
+        </a>
+        <a href="#" class="nav-item active">
+          <span class="material-icons">person</span>
+          <span>You</span>
+        </a>
+      </nav>
+    </div>
+    <script src="user_profile.js"></script>
+  </body>
+</html>

@@ -1,0 +1,467 @@
+/* Base styles and variables */
+:root {
+  --color-primary: #9a8073;
+  --color-secondary: #562b15;
+  --color-background: #ffffff;
+  --color-text: #000000;
+  --color-text-secondary: #666666;
+  --color-cream: #faf2e0;
+  --color-closed: #ff3b30;
+  --color-star: #ffd700;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* / Container / */
+.profile-container {
+  width: 390px;
+  height: 844px;
+  margin: 0 auto;
+  background: var(--color-background);
+  overflow-y: auto;
+  position: relative;
+}
+
+/* / Header / */
+.page-header {
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: var(--color-background);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.back-btn {
+  background: none;
+  border: none;
+  padding: var(--spacing-xs);
+  cursor: pointer;
+}
+
+/* / Photo Gallery / */
+.photo-gallery {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  padding: 0 var(--spacing-md);
+}
+.gallery-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: var(--spacing-md);
+  scroll-behavior: smooth;
+  width: calc(100% + var(--spacing-md));
+  margin-right: calc(-1 * var(--spacing-md));
+}
+
+.gallery-container::-webkit-scrollbar {
+  display: none;
+}
+.gallery-image {
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-hover-area {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 30%;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.gallery-hover-left {
+  left: var(--spacing-md);
+}
+
+.gallery-hover-right {
+  right: var(--spacing-md);
+}
+
+/* Modify the mask layer and enlarged photo styles */
+.photo-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-overlay.active {
+  display: flex;
+}
+
+.overlay-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+.photo-overlay.active .overlay-background {
+  opacity: 1;
+}
+
+.enlarged-photo-container {
+  position: relative;
+  z-index: 1001;
+  width: 340px;
+  height: 340px;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.photo-overlay.active .enlarged-photo-container {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.enlarged-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* edit gallery image hover effect */
+.gallery-image {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+  transform: scale(1.02);
+}
+
+/* / Cafe Information / */
+.cafe-info {
+  padding: var(--spacing-md);
+}
+
+/* Primary Info Row */
+.primary-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.cafe-name {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* Secondary Info and Actions Row */
+.info-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.secondary-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.rating-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.rating-beans {
+  display: flex;
+  gap: 2px;
+}
+
+.bean-icon {
+  color: var(--color-secondary);
+}
+
+.rating-text {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.status-info {
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: 14px;
+}
+
+.status-closed {
+  color: var(--color-closed);
+  font-size: 14px;
+}
+
+.status-time {
+  color: var(--color-text-secondary);
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--color-cream);
+  color: var(--color-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+.category-btn:hover {
+  opacity: 0.9;
+}
+.nav-item:hover {
+  color: var(--color-secondary);
+}
+
+/* / Feature Tags / */
+.feature-tags {
+  padding: var(--spacing-md);
+}
+.section-title {
+  font-size: 18px;
+  margin-bottom: var(--spacing-md);
+}
+.tags-scroll-container {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tags-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+.tags-wrapper {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+}
+.tag {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-cream);
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  font-size: 14px;
+  color: var(--color-secondary);
+}
+
+.content-tabs {
+  margin-top: var(--spacing-lg);
+}
+.tabs-header {
+  display: flex;
+  border-bottom: 1px solid #eeeeee;
+}
+.tab-btn {
+  flex: 1;
+  padding: var(--spacing-md);
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  position: relative;
+  cursor: pointer;
+}
+.tab-btn.active {
+  color: var(--color-text);
+  font-weight: 500;
+}
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-secondary);
+}
+
+/* / Menu Categories / */
+.menu-categories {
+  display: flex;
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+  background: var(--color-cream);
+}
+.category-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-background);
+  font-size: 14px;
+  cursor: pointer;
+}
+.category-btn.active {
+  background: var(--color-secondary);
+}
+
+/* / Menu Items / */
+.menu-items {
+  padding: var(--spacing-md);
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid #eeeeee;
+}
+.item-image {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+.item-details {
+  flex: 1;
+}
+.item-name {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+.item-price {
+  color: var(--color-text-secondary);
+}
+.favorite-btn {
+  color: var(--color-star);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-view {
+  display: none;
+}
+.menu-view.active {
+  display: block;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  margin-top: auto;
+  padding: 15px 0;
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #f0f0f0;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #666666;
+  font-size: 12px;
+  gap: 5px;
+}
+
+.nav-item .material-icons {
+  font-size: 24px;
+}
+
+.nav-item.active {
+  color: var(--arabica-main);
+}
+
+.nav-item span:not(.material-icons) {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.nav-item .material-icons {
+  font-size: 28px;
+}
+
+/* / Media Query for smaller screens / */
+/* @media (max-width: 390px) {
+  .profile-container {
+    width: 100%;
+    height: 100vh;
+  }
+  .bottom-nav {
+    width: 100%;
+  }
+} */
+
+/* / Add missing icon styles / */
+/* .material-icons {
+  font-size: 24px;
+  line-height: 1;
+} */
+
+/* / Add scroll indicator styles / */
+/* .scroll-indicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    background: linear-gradient(to right, transparent, var(--color-background));
+    pointer-events: none;
+} */
