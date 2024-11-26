@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="register">
+        <h1>Register</h1>
+
+        <form id="register" method="POST" action="register.php">
+            <label for="username">username: </label>
+            <input type="text" id="username" name="username" required/>
+
+            <label for="password">password: </label>
+            <input type="password" id="password" name="password" required/>
+
+            <label for="confirm_password">re-enter password: </label>
+            <input type="password" id="confirm_password" name="confirm_password" required/>
+
+            <p id="passwordmsg" style="color: red; font-size: 0.9em;"></p>
+
+            <input type="submit" value="register" id="submit" disabled>
+        </form>
+    </div>
+    
+
+    <script>
+        const passwordField = document.querySelector('#password');
+        const confirmField = document.querySelector('#confirm_password');
+        const passmsgField = document.querySelector('#passwordmsg');
+        const submitButton = document.querySelector('#submit');
+
+        function checkPassword() {
+            const password = passwordField.value;
+            const confirmpass = confirmField.value;
+
+            if (confirmpass === '') {
+                passmsgField.textContent = '';
+                submitButton.disabled = true;
+            }
+            else if (password === confirmpass) {
+                passmsgField.textContent = 'passwords match!';
+                passmsgField.style.color = 'green';
+                submitButton.disabled = false;
+            }
+            else {
+                passmsgField.textContent = 'passwords do not match!';
+                passmsgField.style.color = 'red';
+                submitButton.disabled = true;
+            }
+        }
+
+        passwordField.addEventListener('input', checkPassword);
+        confirmField.addEventListener('input', checkPassword);
+    </script>
+</body>
+</html>
