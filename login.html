@@ -6,6 +6,21 @@
     <title>BrewMatch - Login</title>
 </head>
 <body>
-    
+    <div class="login">
+        <h1>Login</h1>
+
+        <form id="login" method="POST" action="login.php">
+            <label for="username">username: </label>
+            <input type="text" id="username" name="username" required/>
+
+            <label for="password">password: </label>
+            <input type="password" id="password" name="password" required/>
+
+            <input type="submit" value="login">
+        </form>
+
+        <button id="registerbutton" onclick="window.location.href='./register.html'">register</button>
+
+    </div>
 </body>
 </html>
