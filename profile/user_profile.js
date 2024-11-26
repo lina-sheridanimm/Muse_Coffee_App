@@ -31,23 +31,15 @@ function initTabs() {
     );
     
     // Add the appropriate theme class
-    switch(userType) {
-      case 'arabica':
-        container.classList.add('arabica-adventurer');
-        break;
-      case 'matcha':
-        container.classList.add('matcha-mystic');
-        break;
-      case 'espresso':
-        container.classList.add('espresso-emperor');
-        break;
-      case 'mocha':
-        container.classList.add('mocha-muse');
-        break;
-    }
+    container.classList.add(userType.toLowerCase());
   }
   
   // Initialize when DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
     initTabs();
+    // Get the user type from the server or data attribute
+    const userType = document.querySelector('.profile-container').dataset.userType;
+    if (userType) {
+        setUserTheme(userType);
+    }
   });
