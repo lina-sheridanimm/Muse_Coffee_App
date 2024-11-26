@@ -1,0 +1,27 @@
+[{
+    "id": 1,
+    "name": "Bean There Cafe",
+    "location": {
+        "city": "Oakville",
+        "distance": "1 mile"
+    },
+    "rating": {
+        "score": 4.3,
+        "total_reviews": 22,
+        "beans": 4
+    },
+    "hours": {
+        "is_open": false,
+        "next_open": "9:00",
+        "next_open_day": "tomorrow"
+    },
+    "features": [
+        "quiet&cozy",
+        "Good for work/study",
+        "pour-over coffee", 
+        "Good for breakfast/brunch/dessert",
+        "non-coffee options"
+    ]
+}]
+
+

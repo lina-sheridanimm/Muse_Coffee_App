@@ -1,3 +1,29 @@
+<?php
+session_start();
+require_once '../config/db.php';
+
+// if (!isset($_SESSION['user_id'])) {
+//     header('Location: login.php');
+//     exit();
+// }
+// Get user ID from session
+$user_id = 3; //$_SESSION['user_id'];
+
+// Get user data from database
+$stmt = $pdo->prepare("
+    SELECT u.*, pt.type_name, pt.type_badge_image 
+    FROM brewmatch_users u
+    LEFT JOIN user_personality_results upr ON u.user_id = upr.user_id
+    LEFT JOIN personality_types pt ON upr.personality_type_id = pt.type_id
+    WHERE u.user_id = ?
+");
+
+$stmt->execute([$user_id]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+//echo json_encode($user);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +33,7 @@
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BrewMatch - UserProfile</title>
+    <title>BrewMatch - <?php echo htmlspecialchars($user['user_name']); ?></title>
     <link rel="stylesheet" href="user_profile.css" />
   </head>
   <body>
@@ -27,21 +53,21 @@
         <div class="profile-banner">
           <div class="profile-image-container">
             <img
-              src="assets/users/Nancy-zhu-photo.png"
+              src="<?php echo htmlspecialchars("assets/users/".$user['portrait_image']); ?>"
               alt="Profile picture"
               class="profile-image"
             />
             <div class="badge">
               <img
-                src="assets/users/Arabica-badge.png"
+                src="<?php echo htmlspecialchars("assets/users/".$user['type_badge_image']); ?>"
                 alt="Arabica Adventurer badge"
                 class="badge-image"
               />
             </div>
           </div>
         </div>
-        <h1 class="username">Nancy-zhu</h1>
-        <p class="bio">Treat cafés as my fav island.</p>
+        <h1 class="username"><?php echo htmlspecialchars($user['user_name']); ?></h1>
+        <p class="bio"><?php echo htmlspecialchars($user['bio']); ?></p>
 
         <!-- Action Buttons -->
         <div class="action-buttons">
@@ -83,4 +109,5 @@
     </div>
     <script src="user_profile.js"></script>
   </body>
+</html>
 </html>

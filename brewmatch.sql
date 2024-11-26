@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 04:24 PM
+-- Generation Time: Nov 26, 2024 at 09:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,22 +74,23 @@ CREATE TABLE `brewmatch_users` (
   `user_id` int(11) NOT NULL,
   `user_name` varchar(20) NOT NULL,
   `email` text NOT NULL,
-  `personality` varchar(20) NOT NULL
+  `bio` varchar(500) NOT NULL,
+  `portrait_image` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `brewmatch_users`
 --
 
-INSERT INTO `brewmatch_users` (`user_id`, `user_name`, `email`, `personality`) VALUES
-(1, 'nancy_zhu', 'nancy.zhu@mail.utoronto.ca', ''),
-(2, 'justyne_c', 'justyne.chen@mail.utoronto.ca', ''),
-(3, 'andy_tech', 'andy.sales@techcompany.com', ''),
-(4, 'sarah_design', 'sarah.graphics@gmail.com', ''),
-(5, 'michael_dev', 'michael.code@outlook.com', ''),
-(6, 'bella_student', 'bella.student@sheridan.ca', ''),
-(7, 'genevieve_m', 'genevieve.marketing@gmail.com', ''),
-(8, 'dave_coffee', 'dave.manager@quantumcoffee.com', '');
+INSERT INTO `brewmatch_users` (`user_id`, `user_name`, `email`, `bio`, `portrait_image`) VALUES
+(1, 'nancy_zhu', 'nancy.zhu@mail.utoronto.ca', 'Treat cafés as my fav island.', 'user1.png'),
+(2, 'justyne_c', 'justyne.chen@mail.utoronto.ca', 'Living on iced coffee and good vibes!', 'user2.png'),
+(3, 'andy_tech', 'andy.sales@techcompany.com', 'Sorry, zero interest in fancy drinks ❄️☕', 'user3.png'),
+(4, 'sarah_design', 'sarah.graphics@gmail.com', 'love oat milk in latte and drawing 🎨🥛', 'user4.png'),
+(5, 'michael_dev', 'michael.code@outlook.com', 'one Americano at a time 💻⚡', 'user5.png'),
+(6, 'bella_student', 'bella.student@sheridan.ca', 'decaf only please ☕✌️', 'user6.png'),
+(7, 'genevieve_m', 'genevieve.marketing@gmail.com', 'workout coffee runs into taste adventures.', 'user7.png'),
+(8, 'dave_coffee', 'dave.manager@quantumcoffee.com', 'I always want to change my personality 🎭☕', 'user8.png');
 
 -- --------------------------------------------------------
 
@@ -208,6 +209,96 @@ INSERT INTO `cafe_good_for` (`cafe_id`, `good_for`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cafe_hours`
+--
+
+CREATE TABLE `cafe_hours` (
+  `hour_id` int(11) NOT NULL,
+  `cafe_id` int(11) NOT NULL,
+  `day_of_week` enum('monday','tuesday','wednesday','thursday','friday','saturday','sunday') NOT NULL,
+  `open_time` time NOT NULL,
+  `close_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cafe_hours`
+--
+
+INSERT INTO `cafe_hours` (`hour_id`, `cafe_id`, `day_of_week`, `open_time`, `close_time`) VALUES
+(1, 1, 'monday', '07:00:00', '19:00:00'),
+(2, 1, 'tuesday', '07:00:00', '19:00:00'),
+(3, 1, 'wednesday', '07:00:00', '19:00:00'),
+(4, 1, 'thursday', '07:00:00', '19:00:00'),
+(5, 1, 'friday', '07:00:00', '19:00:00'),
+(6, 1, 'saturday', '08:00:00', '18:00:00'),
+(7, 1, 'sunday', '08:00:00', '17:00:00'),
+(8, 2, 'monday', '06:00:00', '18:00:00'),
+(9, 2, 'tuesday', '06:00:00', '18:00:00'),
+(10, 2, 'wednesday', '06:00:00', '18:00:00'),
+(11, 2, 'thursday', '06:00:00', '18:00:00'),
+(12, 2, 'friday', '06:00:00', '18:00:00'),
+(13, 2, 'saturday', '07:00:00', '16:00:00'),
+(14, 2, 'sunday', '00:00:00', '00:00:00'),
+(15, 3, 'monday', '08:00:00', '22:00:00'),
+(16, 3, 'tuesday', '08:00:00', '22:00:00'),
+(17, 3, 'wednesday', '08:00:00', '22:00:00'),
+(18, 3, 'thursday', '08:00:00', '22:00:00'),
+(19, 3, 'friday', '08:00:00', '23:00:00'),
+(20, 3, 'saturday', '08:00:00', '23:00:00'),
+(21, 3, 'sunday', '09:00:00', '21:00:00'),
+(22, 4, 'monday', '07:00:00', '23:00:00'),
+(23, 4, 'tuesday', '07:00:00', '23:00:00'),
+(24, 4, 'wednesday', '07:00:00', '23:00:00'),
+(25, 4, 'thursday', '07:00:00', '23:00:00'),
+(26, 4, 'friday', '07:00:00', '23:00:00'),
+(27, 4, 'saturday', '08:00:00', '20:00:00'),
+(28, 4, 'sunday', '08:00:00', '20:00:00'),
+(29, 5, 'monday', '00:00:00', '00:00:00'),
+(30, 5, 'tuesday', '10:00:00', '20:00:00'),
+(31, 5, 'wednesday', '10:00:00', '20:00:00'),
+(32, 5, 'thursday', '10:00:00', '20:00:00'),
+(33, 5, 'friday', '10:00:00', '20:00:00'),
+(34, 5, 'saturday', '09:00:00', '21:00:00'),
+(35, 5, 'sunday', '09:00:00', '19:00:00'),
+(36, 6, 'monday', '05:30:00', '16:00:00'),
+(37, 6, 'tuesday', '05:30:00', '16:00:00'),
+(38, 6, 'wednesday', '05:30:00', '16:00:00'),
+(39, 6, 'thursday', '05:30:00', '16:00:00'),
+(40, 6, 'friday', '05:30:00', '16:00:00'),
+(41, 6, 'saturday', '07:00:00', '15:00:00'),
+(42, 6, 'sunday', '07:00:00', '15:00:00'),
+(43, 7, 'monday', '07:00:00', '19:00:00'),
+(44, 7, 'tuesday', '07:00:00', '19:00:00'),
+(45, 7, 'wednesday', '07:00:00', '19:00:00'),
+(46, 7, 'thursday', '07:00:00', '19:00:00'),
+(47, 7, 'friday', '07:00:00', '22:00:00'),
+(48, 7, 'saturday', '07:00:00', '22:00:00'),
+(49, 7, 'sunday', '08:00:00', '18:00:00'),
+(50, 8, 'monday', '11:00:00', '21:00:00'),
+(51, 8, 'tuesday', '11:00:00', '21:00:00'),
+(52, 8, 'wednesday', '11:00:00', '21:00:00'),
+(53, 8, 'thursday', '11:00:00', '21:00:00'),
+(54, 8, 'friday', '11:00:00', '21:00:00'),
+(55, 8, 'saturday', '11:00:00', '21:00:00'),
+(56, 8, 'sunday', '11:00:00', '21:00:00'),
+(57, 9, 'monday', '08:00:00', '17:00:00'),
+(58, 9, 'tuesday', '08:00:00', '17:00:00'),
+(59, 9, 'wednesday', '08:00:00', '17:00:00'),
+(60, 9, 'thursday', '08:00:00', '17:00:00'),
+(61, 9, 'friday', '08:00:00', '17:00:00'),
+(62, 9, 'saturday', '07:00:00', '22:00:00'),
+(63, 9, 'sunday', '07:00:00', '22:00:00'),
+(64, 10, 'monday', '10:00:00', '21:00:00'),
+(65, 10, 'tuesday', '10:00:00', '21:00:00'),
+(66, 10, 'wednesday', '10:00:00', '21:00:00'),
+(67, 10, 'thursday', '10:00:00', '21:00:00'),
+(68, 10, 'friday', '10:00:00', '22:00:00'),
+(69, 10, 'saturday', '10:00:00', '22:00:00'),
+(70, 10, 'sunday', '11:00:00', '19:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cafe_meals`
 --
 
@@ -258,18 +349,19 @@ INSERT INTO `cafe_meals` (`cafe_id`, `meal_type`) VALUES
 CREATE TABLE `personality_types` (
   `type_id` int(11) NOT NULL,
   `type_name` varchar(100) NOT NULL,
-  `type_description` text DEFAULT NULL
+  `type_description` text DEFAULT NULL,
+  `type_badge_image` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `personality_types`
 --
 
-INSERT INTO `personality_types` (`type_id`, `type_name`, `type_description`) VALUES
-(1, 'Arabica Adventurer', 'Characteristics: \r\n- Strengths: Naturally charismatic, adaptable, brings people together\r\n- Growth Areas: Can be restless, sometimes sacrifices depth for breadth\r\n- Hidden Depths: Though appearing carefree, they deeply value authentic connections\r\n- Relationship with Coffee: See every cup as a story waiting to be discovered and try to enjoy coffee in different places with different people.'),
-(2, 'Matcha Mystic', 'Characteristics: \r\n- Strengths: Intuitive, mindful, brings balance to chaos\r\n- Growth Areas: Can become too absorbed in ideals, occasionally disconnected from practical matters\r\n- Hidden Depths: Beneath their calm exterior lies a passionate advocate for meaningful change\r\n- Relationship with Coffee: Value the ceremony as much as the drink itself, sipping coffee gives you calmness and mental cure.'),
-(3, 'Espresso Emperor', 'Characteristics: \r\n- Strengths: Precise, passionate about quality, inspirational\r\n- Growth Areas: Can be overly critical, sometimes misses the forest for the trees\r\n- Hidden Depths: Their perfectionism stems from a deep desire to share excellence with others\r\n- Relationship with Coffee: Sees craftsmanship as a path to excellence and seeks original and natural coffee flavor.'),
-(4, 'Mocha Muse', 'Characteristics: \r\n- Strengths: Creative, empathetic, finds beauty in unexpected places\r\n- Growth Areas: Can get lost in possibilities, sometimes struggles with decisions\r\n- Hidden Depths: Their creativity is driven by a desire to make the world more beautiful\r\n- Relationship with Coffee: Believes in coffee\'s power to inspire and comfort, enjoys the ambience of a coffee shop and consider cafe is a place to create and enrich life.');
+INSERT INTO `personality_types` (`type_id`, `type_name`, `type_description`, `type_badge_image`) VALUES
+(1, 'Arabica Adventurer', 'Characteristics: \r\n- Strengths: Naturally charismatic, adaptable, brings people together\r\n- Growth Areas: Can be restless, sometimes sacrifices depth for breadth\r\n- Hidden Depths: Though appearing carefree, they deeply value authentic connections\r\n- Relationship with Coffee: See every cup as a story waiting to be discovered and try to enjoy coffee in different places with different people.', 'Arabica-badge.png'),
+(2, 'Matcha Mystic', 'Characteristics: \r\n- Strengths: Intuitive, mindful, brings balance to chaos\r\n- Growth Areas: Can become too absorbed in ideals, occasionally disconnected from practical matters\r\n- Hidden Depths: Beneath their calm exterior lies a passionate advocate for meaningful change\r\n- Relationship with Coffee: Value the ceremony as much as the drink itself, sipping coffee gives you calmness and mental cure.', 'Matcha-badge.png'),
+(3, 'Espresso Emperor', 'Characteristics: \r\n- Strengths: Precise, passionate about quality, inspirational\r\n- Growth Areas: Can be overly critical, sometimes misses the forest for the trees\r\n- Hidden Depths: Their perfectionism stems from a deep desire to share excellence with others\r\n- Relationship with Coffee: Sees craftsmanship as a path to excellence and seeks original and natural coffee flavor.', 'Espresso-badge.png'),
+(4, 'Mocha Muse', 'Characteristics: \r\n- Strengths: Creative, empathetic, finds beauty in unexpected places\r\n- Growth Areas: Can get lost in possibilities, sometimes struggles with decisions\r\n- Hidden Depths: Their creativity is driven by a desire to make the world more beautiful\r\n- Relationship with Coffee: Believes in coffee\'s power to inspire and comfort, enjoys the ambience of a coffee shop and consider cafe is a place to create and enrich life.', 'Mocha-badge.png');
 
 -- --------------------------------------------------------
 
@@ -467,6 +559,13 @@ ALTER TABLE `cafe_good_for`
   ADD KEY `cafe_id` (`cafe_id`);
 
 --
+-- Indexes for table `cafe_hours`
+--
+ALTER TABLE `cafe_hours`
+  ADD PRIMARY KEY (`hour_id`),
+  ADD UNIQUE KEY `unique_cafe_day` (`cafe_id`,`day_of_week`);
+
+--
 -- Indexes for table `cafe_meals`
 --
 ALTER TABLE `cafe_meals`
@@ -515,7 +614,13 @@ ALTER TABLE `user_test_responses`
 -- AUTO_INCREMENT for table `brewmatch_users`
 --
 ALTER TABLE `brewmatch_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `cafe_hours`
+--
+ALTER TABLE `cafe_hours`
+  MODIFY `hour_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `personality_types`
@@ -562,6 +667,12 @@ ALTER TABLE `cafe_drinks`
 --
 ALTER TABLE `cafe_good_for`
   ADD CONSTRAINT `cafe_good_for_ibfk_1` FOREIGN KEY (`cafe_id`) REFERENCES `brewmatch_cafes` (`cafe_id`);
+
+--
+-- Constraints for table `cafe_hours`
+--
+ALTER TABLE `cafe_hours`
+  ADD CONSTRAINT `cafe_hours_ibfk_1` FOREIGN KEY (`cafe_id`) REFERENCES `brewmatch_cafes` (`cafe_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cafe_meals`
