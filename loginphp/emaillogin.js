@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isValidUser = await checkEmail(email);
             if (isValidUser) {
                 // Redirect to next step (verification page)
-                window.location.href = 'verification.html';
+                window.location.href = 'veri.php';
             } else {
                 showErrorDialog();
             }
