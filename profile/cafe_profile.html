@@ -12,7 +12,7 @@
     <script>
         // Get cafe ID from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
-        const cafeId = urlParams.get('id') || 1; // Default to 1 if no ID provided
+        const cafeId = urlParams.get('id') || 3; // Default to 1 if no ID provided
 
         // Fetch and populate cafe data when page loads
         async function loadCafeData() {
@@ -95,6 +95,18 @@
                     tagsWrapper.innerHTML = features
                         .map(feature => `<span class="tag">${feature}</span>`)
                         .join('');
+                    
+                    if (cafe.photos) {
+                        const galleryContainer = document.querySelector('.gallery-container');
+                        galleryContainer.innerHTML = cafe.photos
+                            .map(photo => `
+                                <img
+                                    src="${photo.url}"
+                                    alt="${photo.description}"
+                                    class="gallery-image"
+                                />
+                            `).join('');
+                    }
                 }
             } catch (error) {
                 console.error('Error loading cafe data:', error);
@@ -156,7 +168,7 @@
                 <span class="bean-icon">☕</span>
                 <span class="bean-icon">☕</span>
               </div>
-              <span class="rating-text">4.5 (22 reviews)</span>
+              <span class="rating-text">4.5</span>
             </div>
             <div class="status-info">
               <span class="status-closed">Closed</span>

@@ -2,19 +2,19 @@
 :root {
     /* Arabica Adventurer Theme */
     --arabica-main: #562B15;
-    --arabica-fade: #9A8073;
+    --arabica-fade: rgba(86, 43, 21, 0.6);
 
     /* Matcha Mystic Theme */
     --matcha-main: #00580D;
-    --matcha-fade: #669B6E;
+    --matcha-fade: rgba(0, 88, 13, 0.6);
 
     /* Espresso Emperor Theme */
-    --coral-main: #F07331;
-    --coral-fade: #F6AB83;
+    --espresso-main: #F07331;
+    --espresso-fade: rgba(240, 115, 49, 0.6);
 
     /* Mocha Muse Theme */
     --mocha-main: #F6C07E;
-    --mocha-fade: #F9D9B2;
+    --mocha-fade: rgba(246, 192, 126, 0.6);
 
     /* Common colors */
     --color-cream: #FAF2E0;
@@ -53,7 +53,6 @@ body {
     left: 0;
     right: 0;
     height: 180px;
-    background-color: var(--arabica-fade);
     border-bottom-left-radius: 100% 50%;
     border-bottom-right-radius: 100% 50%;
     z-index: 0;
@@ -81,12 +80,6 @@ body {
     cursor: pointer;
 }
 
-.back-btn .material-icons,
-.settings-btn .material-icons {
-    font-size: 24px;
-    color: var(--arabica-main);
-}
-
 /* User info section */
 .user-info {
     padding: 20px;
@@ -99,26 +92,6 @@ body {
 .profile-banner {
     position: relative;
     margin-bottom: 20px;
-}
-
-/* Ribbon banner styles */
-.banner-ribbon {
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--arabica-fade);
-    padding: 8px 20px;
-    border-radius: 20px;
-    z-index: 2;
-    min-width: 180px;
-    text-align: center;
-}
-
-.banner-ribbon span {
-    color: var(--color-white);
-    font-size: 14px;
-    font-weight: 500;
 }
 
 /* Profile image styles */
@@ -157,7 +130,6 @@ body {
 
 /* Username and bio */
 .username {
-    color: var(--arabica-main);
     margin: 30px 0 5px;
     font-size: 24px;
     margin-top: 35px;
@@ -185,13 +157,11 @@ body {
 }
 
 .message-btn {
-    background-color: var(--arabica-main);
     color: var(--color-white);
 }
 
 .edit-profile-btn {
-    background-color: #F2E8E1;
-    color: var(--arabica-main);
+    color: var(--color-black);
 }
 
 /* Tabs section */
@@ -217,9 +187,9 @@ body {
     position: relative;
 }
 
-.tab.active {
+/* .tab.active {
     color: var(--arabica-main);
-}
+} */
 
 .tab.active::after {
     content: '';
@@ -228,7 +198,7 @@ body {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: var(--arabica-main);
+    /* background-color: var(--arabica-main); */
 }
 
 /* Bottom navigation */
@@ -257,9 +227,6 @@ body {
     font-size: 24px;
 }
 
-.nav-item.active {
-    color: var(--arabica-main);
-}
 
 .nav-item span:not(.material-icons) {
     font-size: 12px;
@@ -285,4 +252,95 @@ body {
     width: 100%;
     height: 150px;
     object-fit: cover;
+}
+
+/* Theme-specific styles */
+/* Matcha Mystic */
+.matcha-mystic::before {
+    background-color: var(--matcha-fade);
+}
+.matcha-mystic .material-icons,
+.matcha-mystic .username,
+.matcha-mystic .tab.active,
+.matcha-mystic .nav-item.active {
+    color: var(--matcha-main);
+}
+.matcha-mystic .message-btn {
+    background-color: var(--matcha-main);
+    color: var(--color-white);
+}
+.matcha-mystic .edit-profile-btn {
+    background-color: var(--matcha-fade);
+    color: var(--color-black);
+}
+
+.matcha-mystic .tab.active::after {
+    background-color: var(--matcha-main);
+}
+
+/* Arabica Adventurer */
+.arabica-adventurer::before {
+    background-color: var(--arabica-fade);
+}
+.arabica-adventurer .material-icons,
+.arabica-adventurer .username,
+.arabica-adventurer .tab.active,
+.arabica-adventurer .nav-item.active {
+    color: var(--arabica-main);
+}
+.arabica-adventurer .message-btn {
+    background-color: var(--arabica-main);
+    color: var(--color-white);
+}
+.arabica-adventurer .edit-profile-btn {
+    background-color: var(--arabica-fade);
+    color: var(--color-black);
+}
+.arabica-adventurer .tab.active::after {
+    background-color: var(--arabica-main);
+}
+
+/* Espresso Emperor */
+.espresso-emperor::before {
+    background-color: var(--espresso-fade);
+}
+.espresso-emperor .material-icons,
+.espresso-emperor .username,
+.espresso-emperor .tab.active,
+.espresso-emperor .nav-item.active {
+    color: var(--espresso-main);
+}
+.espresso-emperor .message-btn {
+    background-color: var(--espresso-main);
+    color: var(--color-white);
+}
+.espresso-emperor .edit-profile-btn {
+    background-color: var(--espresso-fade);
+    color: var(--color-black);
+}
+.espresso-emperor .tab.active::after {
+    background-color: var(--espresso-main);
+}
+
+/* Mocha Muse */
+.mocha-muse::before {
+    background-color: var(--mocha-fade);
+}
+.mocha-muse .material-icons,
+.mocha-muse .username,
+.mocha-muse .tab.active,
+.mocha-muse .nav-item.active {
+    color: var(--mocha-main);
+}
+.mocha-muse .message-btn {
+    background-color: var(--mocha-main);
+    color: var(--color-white);
+}
+.mocha-muse .edit-profile-btn {
+    background-color: var(--mocha-fade);
+    color: var(--color-black);
+}
+
+.mocha-muse .tab.active::after {
+    background-color: var(--mocha-main);
 }

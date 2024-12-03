@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2024 at 09:58 PM
+-- Generation Time: Dec 03, 2024 at 05:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -343,6 +343,35 @@ INSERT INTO `cafe_meals` (`cafe_id`, `meal_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cafe_photos`
+--
+
+CREATE TABLE `cafe_photos` (
+  `photo_id` int(11) NOT NULL,
+  `cafe_id` int(11) NOT NULL,
+  `photo_url` varchar(255) NOT NULL,
+  `photo_description` text DEFAULT NULL,
+  `photo_order` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cafe_photos`
+--
+
+INSERT INTO `cafe_photos` (`photo_id`, `cafe_id`, `photo_url`, `photo_description`, `photo_order`) VALUES
+(1, 1, 'assets/cafes/cafe_1_main.jpg', 'Main view of Bean There Café', 1),
+(2, 1, 'assets/cafes/cafe_1_interior.jpg', 'Interior of Bean There Café', 2),
+(3, 1, 'assets/cafes/cafe_1_details.jpg', 'Details of Bean There Café', 3),
+(4, 2, 'assets/cafes/cafe_2_main.jpg', 'Main view of Kerr Street Café', 1),
+(5, 2, 'assets/cafes/cafe_2_interior.jpg', 'Interior of Kerr Street Café', 2),
+(6, 2, 'assets/cafes/cafe_2_details.jpg', 'Details of Kerr Street Café', 3),
+(7, 3, 'assets/cafes/cafe_3_main.jpg', 'Main view of The Coffee Lab', 1),
+(8, 3, 'assets/cafes/cafe_3_interior.jpg', 'Interior of The Coffee Lab', 2),
+(9, 3, 'assets/cafes/cafe_3_details.jpg', 'Details of The Coffee Lab', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personality_types`
 --
 
@@ -572,6 +601,13 @@ ALTER TABLE `cafe_meals`
   ADD KEY `cafe_id` (`cafe_id`);
 
 --
+-- Indexes for table `cafe_photos`
+--
+ALTER TABLE `cafe_photos`
+  ADD PRIMARY KEY (`photo_id`),
+  ADD KEY `cafe_id` (`cafe_id`);
+
+--
 -- Indexes for table `personality_types`
 --
 ALTER TABLE `personality_types`
@@ -621,6 +657,12 @@ ALTER TABLE `brewmatch_users`
 --
 ALTER TABLE `cafe_hours`
   MODIFY `hour_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
+--
+-- AUTO_INCREMENT for table `cafe_photos`
+--
+ALTER TABLE `cafe_photos`
+  MODIFY `photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `personality_types`
@@ -679,6 +721,12 @@ ALTER TABLE `cafe_hours`
 --
 ALTER TABLE `cafe_meals`
   ADD CONSTRAINT `cafe_meals_ibfk_1` FOREIGN KEY (`cafe_id`) REFERENCES `brewmatch_cafes` (`cafe_id`);
+
+--
+-- Constraints for table `cafe_photos`
+--
+ALTER TABLE `cafe_photos`
+  ADD CONSTRAINT `cafe_photos_ibfk_1` FOREIGN KEY (`cafe_id`) REFERENCES `brewmatch_cafes` (`cafe_id`);
 
 --
 -- Constraints for table `test_answers`

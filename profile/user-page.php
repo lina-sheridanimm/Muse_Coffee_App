@@ -7,7 +7,7 @@ require_once '../config/db.php';
 //     exit();
 // }
 // Get user ID from session
-$user_id = 3; //$_SESSION['user_id'];
+$user_id = 2; //$_SESSION['user_id'];
 
 // Get user data from database
 $stmt = $pdo->prepare("
@@ -21,6 +21,9 @@ $stmt = $pdo->prepare("
 $stmt->execute([$user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 //echo json_encode($user);
+$className = strtolower(str_replace(' ', '-', $user['type_name']));
+//echo htmlspecialchars($className); 
+
 ?>
 
 
@@ -37,7 +40,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="user_profile.css" />
   </head>
   <body>
-    <div class="profile-container arabica-adventurer">
+    <div class="profile-container <?php echo htmlspecialchars($className); ?>" 
+         data-user-type="<?php echo htmlspecialchars($className); ?>">
       <!-- Top Navigation -->
       <nav class="top-nav">
         <button class="back-btn">
@@ -71,8 +75,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-          <button class="message-btn">Message</button>
-          <button class="edit-profile-btn">Edit Profile</button>
+          <button class="message-btn <?php echo htmlspecialchars($className); ?>">Message</button>
+          <button class="edit-profile-btn <?php echo htmlspecialchars($className); ?>">Edit Profile</button>
         </div>
       </div>
 

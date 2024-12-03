@@ -59,6 +59,16 @@ if (!empty($cafe['drink_types'])) {
     $features['drink_types'] = explode(',', $cafe['drink_types']);
 }
 
+// Add this query after your existing cafe query
+$photos_stmt = $pdo->prepare("
+    SELECT photo_url, photo_description 
+    FROM cafe_photos 
+    WHERE cafe_id = ?
+    ORDER BY photo_order
+");
+
+$photos_stmt->execute([$cafe_id]);
+$photos = $photos_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Get cafe hours from database
 $hours_stmt = $pdo->prepare("
@@ -94,11 +104,17 @@ $cafe_data = [
     ],
     'rating' => [
         'score' => round($cafe['average_rating'], 1),
-        'total_reviews' => 22, // Placeholder value since review_count doesn't exist in DB
+        'total_reviews' => 5, // Placeholder value since review_count doesn't exist in DB
         'beans' => floor($cafe['average_rating']) // Convert rating to whole number of beans
     ],
     "open_hours" => $cafe_hours,
-    'features' => $features
+    'features' => $features,
+    'photos' => array_map(function($photo) {
+        return [
+            'url' => $photo['photo_url'],
+            'description' => $photo['photo_description']
+        ];
+    }, $photos)
 ];
 
 //"ambience":"modern & lively"
