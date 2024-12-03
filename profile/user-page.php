@@ -37,7 +37,7 @@ $className = strtolower(str_replace(' ', '-', $user['type_name']));
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BrewMatch - <?php echo htmlspecialchars($user['user_name']); ?></title>
-    <link rel="stylesheet" href="user_profile.css" />
+    <link rel="stylesheet" href="css/user_profile.css" />
   </head>
   <body>
     <div class="profile-container <?php echo htmlspecialchars($className); ?>" 
@@ -111,7 +111,7 @@ $className = strtolower(str_replace(' ', '-', $user['type_name']));
         </a>
       </nav>
     </div>
-    <script src="user_profile.js"></script>
+    <script src="js/user_profile.js"></script>
   </body>
 </html>
 </html>

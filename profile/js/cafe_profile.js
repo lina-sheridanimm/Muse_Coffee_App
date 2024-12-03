@@ -230,7 +230,7 @@ class TabSwitcher {
 
 // Initialize all functionalities
 document.addEventListener('DOMContentLoaded', () => {
-    new PhotoGallery();
-    new TagsScroller();
-    new TabSwitcher();
+    // new PhotoGallery();
+    // new TagsScroller();
+    // new TabSwitcher();
 }); 

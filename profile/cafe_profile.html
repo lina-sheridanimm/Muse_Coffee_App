@@ -8,11 +8,11 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="cafe_profile.css" />
+    <link rel="stylesheet" href="css/cafe_profile.css" />
     <script>
         // Get cafe ID from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
-        const cafeId = urlParams.get('id') || 3; // Default to 1 if no ID provided
+        const cafeId = urlParams.get('id') || 2; // Default to 1 if no ID provided
 
         // Fetch and populate cafe data when page loads
         async function loadCafeData() {
@@ -108,6 +108,13 @@
                             `).join('');
                     }
                 }
+
+
+                // all the html elements are loaded/created
+                new PhotoGallery();
+                new TagsScroller();
+                new TabSwitcher();
+
             } catch (error) {
                 console.error('Error loading cafe data:', error);
             }
@@ -129,21 +136,6 @@
       <!-- 2. Photo Gallery -->
       <section class="photo-gallery">
         <div class="gallery-container">
-          <img
-            src="assets/cafes/bean_there_cafe.jpg"
-            alt="Cafe interior with bikes and menu board"
-            class="gallery-image"
-          />
-          <img
-            src="assets/cafes/bean_there_cafe-1.jpg"
-            alt="Coffee preparation details"
-            class="gallery-image"
-          />
-          <img
-            src="assets/cafes/bean_there_cafe-2.jpg"
-            alt="Cafe interior with lamps and tables"
-            class="gallery-image"
-          />
         </div>
       </section>
 
@@ -151,10 +143,10 @@
       <section class="cafe-info">
         <!-- Primary Info: Name and Location in one row -->
         <div class="primary-info">
-          <h2 class="cafe-name">Bean There Cafe</h2>
+          <h2 class="cafe-name"></h2>
           <div class="location-info">
-            <span class="material-icons">location_on</span>
-            <span>Oakville · 1 mile</span>
+            <span class="material-icons"></span>
+            <span></span>
           </div>
         </div>
 
@@ -281,6 +273,6 @@
       </div>
     </div>
 
-    <script src="cafe_profile.js"></script>
+    <script src="js/cafe_profile.js"></script>
   </body>
 </html>
