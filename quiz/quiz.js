@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     {ID: "C", choice: "c. A skilled barista crafting coffee with perfect precision"},
                     {ID: "D", choice: "d. Someone photographing an artful latte against a wall mural"}
                 ],
-                image: "./quiz/assets/q1.png"
+                image: "./assets/q1.png"
             },
             {
                 question: "The barista leads you to a magical brewing station where four coffee beans float in mid-air. Each one shows a different scene when you look closely. What do you see in yours?",
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     {ID: "C", choice: "c. A modern coffee lab developing new brewing techniques"},
                     {ID: "D", choice: "d. A late-night café with artists in deep discussion"}
                 ],
-                image: "./quiz/assets/q2.png"
+                image: "./assets/q2.png"
             },
             {
                 question: "Suddenly, your coffee cup begins to ripple, and you're transported to a coffee farm at harvest time. The farm owner needs help, and you want to: ",
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     {ID: "C", choice: "c. Develop a new method for sorting beans to ensure maximum quality"},
                     {ID: "D", choice: "d. Create an innovative way to showcase the farm's unique story and coffee variety"}
                 ],
-                image: "../quiz/assets/q3.png"
+                image: "./assets/q3.png"
             },
             {
                 question: "You've discovered a torn page from a magic recipe book! When you touch it, you experience a memory of: ",
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     {ID: "C", choice: "c. Competing in a coffee championship, mastering coffee brewing techniques"},
                     {ID: "D", choice: "d. Experimenting with unusual ingredients to create a signature drink"}
                 ],
-                image: "./quiz/assets/q4.png"
+                image: "./assets/q4.png"
             },
             {
                 question: "The barista reveals that the magical recipe book's pages shift and renew themselves, reflecting the ever-evolving relationships between humans and coffee across the world. You feel compelled to: ",
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     {ID: "C", choice: "c. Master every detail and technique through the rich history of coffee"},
                     {ID: "D", choice: "d. Blend traditional coffee wisdom with contemporary artistic expression"}
                 ],
-                image: "./quiz/assets/q5.png"
+                image: "./assets/q5.png"
             },
             {
                 question: "The final test requires you to add your own magic to the recipe book. You create: ",
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     {ID: "C", choice: "c. A mystical menu that reads moods and suggests perfect coffee pairings"},
                     {ID: "D", choice: "d. An innovative cup design that dances on the page, transforming coffee rituals"}
                 ],
-                image: "./quiz/assets/q6.png"
+                image: "./assets/q6.png"
             }
         ]
     
