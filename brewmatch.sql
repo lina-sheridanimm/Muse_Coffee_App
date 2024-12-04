@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2024 at 05:38 PM
+-- Generation Time: Dec 04, 2024 at 04:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -372,6 +372,31 @@ INSERT INTO `cafe_photos` (`photo_id`, `cafe_id`, `photo_url`, `photo_descriptio
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cafe_reviews`
+--
+
+CREATE TABLE `cafe_reviews` (
+  `review_id` int(11) NOT NULL,
+  `cafe_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL CHECK (`rating` between 1 and 5),
+  `review_text` text NOT NULL,
+  `review_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cafe_reviews`
+--
+
+INSERT INTO `cafe_reviews` (`review_id`, `cafe_id`, `user_id`, `rating`, `review_text`, `review_date`) VALUES
+(1, 1, 1, 4, 'Great atmosphere for studying! Their pour-over coffee is exceptional, and the staff is very knowledgeable about different brewing methods.', '2024-03-15 14:30:00'),
+(2, 1, 2, 5, 'This has become my go-to spot for morning coffee. The latte art is beautiful and the coffee quality is consistently excellent.', '2024-03-16 13:15:00'),
+(3, 2, 3, 4, 'Perfect spot for remote work. Fast wifi and plenty of power outlets. Their matcha latte is one of the best in town!', '2024-03-14 18:45:00'),
+(4, 3, 4, 5, 'Hidden gem! The espresso here is outstanding. Love the minimalist design and peaceful ambiance.', '2024-03-13 20:20:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personality_types`
 --
 
@@ -608,6 +633,14 @@ ALTER TABLE `cafe_photos`
   ADD KEY `cafe_id` (`cafe_id`);
 
 --
+-- Indexes for table `cafe_reviews`
+--
+ALTER TABLE `cafe_reviews`
+  ADD PRIMARY KEY (`review_id`),
+  ADD KEY `cafe_id` (`cafe_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `personality_types`
 --
 ALTER TABLE `personality_types`
@@ -663,6 +696,12 @@ ALTER TABLE `cafe_hours`
 --
 ALTER TABLE `cafe_photos`
   MODIFY `photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `cafe_reviews`
+--
+ALTER TABLE `cafe_reviews`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personality_types`
@@ -727,6 +766,13 @@ ALTER TABLE `cafe_meals`
 --
 ALTER TABLE `cafe_photos`
   ADD CONSTRAINT `cafe_photos_ibfk_1` FOREIGN KEY (`cafe_id`) REFERENCES `brewmatch_cafes` (`cafe_id`);
+
+--
+-- Constraints for table `cafe_reviews`
+--
+ALTER TABLE `cafe_reviews`
+  ADD CONSTRAINT `cafe_reviews_ibfk_1` FOREIGN KEY (`cafe_id`) REFERENCES `brewmatch_cafes` (`cafe_id`),
+  ADD CONSTRAINT `cafe_reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `brewmatch_users` (`user_id`);
 
 --
 -- Constraints for table `test_answers`

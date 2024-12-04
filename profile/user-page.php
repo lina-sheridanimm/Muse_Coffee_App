@@ -37,7 +37,7 @@ $className = strtolower(str_replace(' ', '-', $user['type_name']));
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BrewMatch - <?php echo htmlspecialchars($user['user_name']); ?></title>
-    <link rel="stylesheet" href="user_profile.css" />
+    <link rel="stylesheet" href="css/user_profile.css" />
   </head>
   <body>
     <div class="profile-container <?php echo htmlspecialchars($className); ?>" 
@@ -89,8 +89,33 @@ $className = strtolower(str_replace(' ', '-', $user['type_name']));
 
         <!-- Tab Content -->
         <div class="tab-content">
-          <div class="review-grid">
-            <div class="review-card"></div>
+          <div class="review-grid active">
+            <?php
+            // Get user's reviews
+            $reviewStmt = $pdo->prepare("
+                SELECT r.*, c.name as cafe_name 
+                FROM cafe_reviews r
+                JOIN brewmatch_cafes c ON r.cafe_id = c.cafe_id
+                WHERE r.user_id = ?
+                ORDER BY r.review_date DESC
+            ");
+            $reviewStmt->execute([$user_id]);
+            $reviews = $reviewStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($reviews as $review) {
+                echo '<div class="review-card" onclick="window.location.href=\'cafe_profile.html?id=' . $review['cafe_id'] . '\'">';
+                echo '<div class="review-header">';
+                echo '<div class="reviewer-info">';
+                echo '<h4>' . htmlspecialchars($review['cafe_name']) . '</h4>';
+                echo '<div class="rating-beans">' . str_repeat('☕', $review['rating']) . '</div>';
+                echo '</div></div>';
+                echo '<p class="review-text">' . htmlspecialchars($review['review_text']) . '</p>';
+                echo '</div>';
+            }
+            ?>
+          </div>
+          <div class="saved-grid">
+            <!-- Saved content will go here -->
           </div>
         </div>
       </div>
@@ -111,7 +136,7 @@ $className = strtolower(str_replace(' ', '-', $user['type_name']));
         </a>
       </nav>
     </div>
-    <script src="user_profile.js"></script>
+    <script src="js/user_profile.js"></script>
   </body>
 </html>
 </html>

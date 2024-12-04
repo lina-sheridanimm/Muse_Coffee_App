@@ -210,27 +210,84 @@ class TagsScroller {
 class TabSwitcher {
     constructor() {
         this.tabButtons = document.querySelectorAll('.tab-btn');
+        this.menuView = document.querySelector('.menu-view');
+        this.reviewsView = document.querySelector('.reviews-view');
+        
+        console.log('TabSwitcher initialized:', {
+            tabButtons: this.tabButtons,
+            menuView: this.menuView,
+            reviewsView: this.reviewsView
+        });
+        
         this.init();
     }
 
     init() {
         this.tabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove all active states
+                console.log('Tab clicked:', button.textContent);
+                
+                // Remove active state from all tabs
                 this.tabButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active state to current button
+                // Add active state to clicked tab
                 button.classList.add('active');
                 
-                // Add content switching logic here
-                // For example, show corresponding menu or reviews content
+                // Toggle content visibility
+                if (button.textContent === 'Reviews') {
+                    console.log('Switching to Reviews view');
+                    this.menuView.classList.remove('active');
+                    this.reviewsView.classList.add('active');
+                    this.loadReviews();
+                } else {
+                    console.log('Switching to Menu view');
+                    this.menuView.classList.add('active');
+                    this.reviewsView.classList.remove('active');
+                }
             });
         });
     }
+
+    async loadReviews() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cafeId = urlParams.get('id') || 1;
+        
+        console.log('Loading reviews for cafe:', cafeId);
+        
+        try {
+            const response = await fetch(`reviews-api.php?cafe_id=${cafeId}`);
+            const data = await response.json();
+            console.log('Reviews data:', data);
+            
+            if (data.status === 'success') {
+                const reviewsHTML = data.reviews.map(review => `
+                    <div class="review-card" onclick="window.location.href='user-page.php?id=${review.user_id}'">
+                        <div class="review-header">
+                            <img src="assets/users/${review.portrait_image}" alt="${review.user_name}" class="reviewer-image">
+                            <div class="reviewer-info">
+                                <h4>${review.user_name}</h4>
+                                <div class="rating-beans">${'☕'.repeat(review.rating)}</div>
+                            </div>
+                        </div>
+                        <p class="review-text">${review.review_text}</p>
+                    </div>
+                `).join('');
+                
+                const reviewsContainer = document.querySelector('.reviews-container');
+                console.log('Reviews container:', reviewsContainer);
+                if (reviewsContainer) {
+                    reviewsContainer.innerHTML = reviewsHTML;
+                } else {
+                    console.error('Reviews container not found');
+                }
+            }
+        } catch (error) {
+            console.error('Error loading reviews:', error);
+        }
+    }
 }
 
-// Initialize all functionalities
-document.addEventListener('DOMContentLoaded', () => {
-    new PhotoGallery();
-    new TagsScroller();
-    new TabSwitcher();
-}); 
+// // Initialize when DOM is loaded
+// document.addEventListener('DOMContentLoaded', () => {
+//     console.log('DOM loaded, initializing TabSwitcher');
+//     new TabSwitcher();
+// }); 

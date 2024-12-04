@@ -8,114 +8,8 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="cafe_profile.css" />
-    <script>
-        // Get cafe ID from URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const cafeId = urlParams.get('id') || 3; // Default to 1 if no ID provided
+    <link rel="stylesheet" href="css/cafe_profile.css" />
 
-        // Fetch and populate cafe data when page loads
-        async function loadCafeData() {
-            try {
-                const response = await fetch(`cafe-page-api.php?id=${cafeId}`);
-                const result = await response.json();
-                
-                if (result.status === 'success') {
-                    const cafe = result.data;
-                    
-                    // Update page title
-                    document.title = `${cafe.name} - BrewMatch`;
-                    
-                    // Update cafe name and location
-                    document.querySelector('.cafe-name').textContent = cafe.name;
-                    document.querySelector('.location-info span:last-child').textContent = 
-                    `${cafe.location.city} · ${cafe.location.distance}`;
-                    
-                    // Update rating
-                    const ratingBeans = document.querySelector('.rating-beans');
-                    ratingBeans.innerHTML = '☕'.repeat(cafe.rating.beans);
-                    document.querySelector('.rating-text').textContent = 
-                    `${cafe.rating.score} (${cafe.rating.total_reviews} reviews)`;
-                    
-                    // Update status based on current time and open hours
-                    const now = new Date();
-                    const dayOfWeek = now.toLocaleDateString('en-US', {weekday: 'long'}).toLowerCase();
-                    console.log(dayOfWeek);
-                    const hours = now.getHours().toString().padStart(2, '0');
-                    const minutes = now.getMinutes().toString().padStart(2, '0'); 
-                    const currentTime = `${hours}:${minutes}`;
-                    
-                    const todayHours = cafe.open_hours[dayOfWeek];
-                    const isOpen = currentTime >= todayHours.open && currentTime <= todayHours.close;
-                    
-                    const statusElement = document.querySelector('.status-closed');
-                    statusElement.textContent = isOpen ? 'Open' : 'Closed';
-                    statusElement.className = isOpen ? 'status-open' : 'status-closed';
-                    
-                    if (!isOpen) {
-                        // Find next open time
-                        let nextDay = now;
-                        let foundNextOpen = false;
-                        for(let i = 0; i < 7; i++) {
-                            nextDay.setDate(nextDay.getDate() + 1);
-                            const nextDayName = nextDay.toLocaleLowerCase().slice(0,3);
-                            const nextDayHours = cafe.open_hours[nextDayName];
-                            
-                            if (nextDayHours) {
-                                document.querySelector('.status-time').textContent = 
-                                    `until ${nextDayHours.open} ${nextDay.toLocaleDateString('en-US', {weekday: 'long'})}`;
-                                foundNextOpen = true;
-                                break;
-                            }
-                        }
-                        
-                        if (!foundNextOpen) {
-                            document.querySelector('.status-time').textContent = 'Check back later';
-                        }
-                    } else {
-                        document.querySelector('.status-time').textContent = 
-                            `Closes at ${todayHours.close}`;
-                    }
-                    
-                    // Update feature tags
-                    const tagsWrapper = document.querySelector('.tags-wrapper');
-                    const features = [];
-                    if (cafe.features.ambience) features.push(cafe.features.ambience);
-                    if (cafe.features.good_for) features.push("Good for " + cafe.features.good_for);
-                    if (cafe.features.meal_types) features.push("Good for " + cafe.features.meal_types);
-                    if (cafe.features.drink_types) {
-                        cafe.features.drink_types.forEach(drinkType => {
-                            features.push(drinkType);
-                        });
-                    }
-                    if (cafe.features.amenities) {
-                        features.push(...cafe.features.amenities);
-                    }
-                    
-                    tagsWrapper.innerHTML = features
-                        .map(feature => `<span class="tag">${feature}</span>`)
-                        .join('');
-                    
-                    if (cafe.photos) {
-                        const galleryContainer = document.querySelector('.gallery-container');
-                        galleryContainer.innerHTML = cafe.photos
-                            .map(photo => `
-                                <img
-                                    src="${photo.url}"
-                                    alt="${photo.description}"
-                                    class="gallery-image"
-                                />
-                            `).join('');
-                    }
-                }
-            } catch (error) {
-                console.error('Error loading cafe data:', error);
-            }
-        }
-
-        // Call the function when page loads
-        document.addEventListener('DOMContentLoaded', loadCafeData);
-    </script>
   </head>
   <body>
     <div class="profile-container">
@@ -129,21 +23,6 @@
       <!-- 2. Photo Gallery -->
       <section class="photo-gallery">
         <div class="gallery-container">
-          <img
-            src="assets/cafes/bean_there_cafe.jpg"
-            alt="Cafe interior with bikes and menu board"
-            class="gallery-image"
-          />
-          <img
-            src="assets/cafes/bean_there_cafe-1.jpg"
-            alt="Coffee preparation details"
-            class="gallery-image"
-          />
-          <img
-            src="assets/cafes/bean_there_cafe-2.jpg"
-            alt="Cafe interior with lamps and tables"
-            class="gallery-image"
-          />
         </div>
       </section>
 
@@ -151,10 +30,10 @@
       <section class="cafe-info">
         <!-- Primary Info: Name and Location in one row -->
         <div class="primary-info">
-          <h2 class="cafe-name">Bean There Cafe</h2>
+          <h2 class="cafe-name"></h2>
           <div class="location-info">
-            <span class="material-icons">location_on</span>
-            <span>Oakville · 1 mile</span>
+            <span class="material-icons"></span>
+            <span></span>
           </div>
         </div>
 
@@ -168,11 +47,11 @@
                 <span class="bean-icon">☕</span>
                 <span class="bean-icon">☕</span>
               </div>
-              <span class="rating-text">4.5</span>
+              <span class="rating-text"></span>
             </div>
             <div class="status-info">
-              <span class="status-closed">Closed</span>
-              <span class="status-time">until 9am tomorrow</span>
+              <span class="status-closed"></span>
+              <span class="status-time"></span>
             </div>
           </div>
 
@@ -195,11 +74,6 @@
         <h3 class="section-title">Feature Tag</h3>
         <div class="tags-scroll-container">
           <div class="tags-wrapper">
-            <span class="tag">quiet&cozy</span>
-            <span class="tag">Good for work/study</span>
-            <span class="tag">pour-over coffee</span>
-            <span class="tag">Good for breakfast/brunch/dessert</span>
-            <span class="tag">non-coffee options</span>
           </div>
           <div class="scroll-indicator"></div>
         </div>
@@ -253,6 +127,13 @@
               </article>
             </div>
           </div>
+          
+          <!-- Reviews Content -->
+          <div class="reviews-view">
+            <div class="reviews-container">
+                <!-- Reviews will be loaded here -->
+            </div>
+          </div>
         </div>
       </section>
 
@@ -281,6 +162,120 @@
       </div>
     </div>
 
-    <script src="cafe_profile.js"></script>
+    <script src="js/cafe_profile.js"></script>
+    <script>
+      // Get cafe ID from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const cafeId = urlParams.get('id') || 3; // Default to 1 if no ID provided
+
+      // Fetch and populate cafe data when page loads
+      async function loadCafeData() {
+          try {
+              const response = await fetch(`cafe-page-api.php?id=${cafeId}`);
+              const result = await response.json();
+              
+              if (result.status === 'success') {
+                  const cafe = result.data;
+                  
+                  // Update page title
+                  document.title = `${cafe.name} - BrewMatch`;
+                  
+                  // Update cafe name and location
+                  document.querySelector('.cafe-name').textContent = cafe.name;
+                  document.querySelector('.location-info span:last-child').textContent = 
+                  `${cafe.location.city} · ${cafe.location.distance}`;
+                  
+                  // Update rating
+                  const ratingBeans = document.querySelector('.rating-beans');
+                  ratingBeans.innerHTML = '☕'.repeat(cafe.rating.beans);
+                  document.querySelector('.rating-text').textContent = 
+                  `${cafe.rating.score} (${cafe.rating.total_reviews} reviews)`;
+                  
+                  // Update status based on current time and open hours
+                  const now = new Date();
+                  const dayOfWeek = now.toLocaleDateString('en-US', {weekday: 'long'}).toLowerCase();
+                  console.log(dayOfWeek);
+                  const hours = now.getHours().toString().padStart(2, '0');
+                  const minutes = now.getMinutes().toString().padStart(2, '0'); 
+                  const currentTime = `${hours}:${minutes}`;
+                  
+                  const todayHours = cafe.open_hours[dayOfWeek];
+                  const isOpen = currentTime >= todayHours.open && currentTime <= todayHours.close;
+                  
+                  const statusElement = document.querySelector('.status-closed');
+                  statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                  statusElement.className = isOpen ? 'status-open' : 'status-closed';
+                  
+                  if (!isOpen) {
+                      // Find next open time
+                      let nextDay = now;
+                      let foundNextOpen = false;
+                      for(let i = 0; i < 7; i++) {
+                          nextDay.setDate(nextDay.getDate() + 1);
+                          const nextDayName = nextDay.toLocaleLowerCase().slice(0,3);
+                          const nextDayHours = cafe.open_hours[nextDayName];
+                          
+                          if (nextDayHours) {
+                              document.querySelector('.status-time').textContent = 
+                                  `until ${nextDayHours.open} ${nextDay.toLocaleDateString('en-US', {weekday: 'long'})}`;
+                              foundNextOpen = true;
+                              break;
+                          }
+                      }
+                      
+                      if (!foundNextOpen) {
+                          document.querySelector('.status-time').textContent = 'Check back later';
+                      }
+                  } else {
+                      document.querySelector('.status-time').textContent = 
+                          `Closes at ${todayHours.close}`;
+                  }
+                  
+                  // Update feature tags
+                  const tagsWrapper = document.querySelector('.tags-wrapper');
+                  const features = [];
+                  if (cafe.features.ambience) features.push(cafe.features.ambience);
+                  if (cafe.features.good_for) features.push("Good for " + cafe.features.good_for);
+                  if (cafe.features.meal_types) features.push("Good for " + cafe.features.meal_types);
+                  if (cafe.features.drink_types) {
+                      cafe.features.drink_types.forEach(drinkType => {
+                          features.push(drinkType);
+                      });
+                  }
+                  if (cafe.features.amenities) {
+                      features.push(...cafe.features.amenities);
+                  }
+                  
+                  tagsWrapper.innerHTML = features
+                      .map(feature => `<span class="tag">${feature}</span>`)
+                      .join('');
+                  
+                  if (cafe.photos) {
+                      const galleryContainer = document.querySelector('.gallery-container');
+                      galleryContainer.innerHTML = cafe.photos
+                          .map(photo => `
+                              <img
+                                  src="${photo.url}"
+                                  alt="${photo.description}"
+                                  class="gallery-image"
+                              />
+                          `).join('');
+                  }
+              }
+
+
+              // all the html elements are loaded/created
+              new PhotoGallery();
+              new TagsScroller();
+              new TabSwitcher();
+
+          } catch (error) {
+              console.error('Error loading cafe data:', error);
+          }
+      }
+
+      // Call the function when page loads
+      document.addEventListener('DOMContentLoaded', loadCafeData);
+  </script>
   </body>
 </html>

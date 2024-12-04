@@ -392,11 +392,14 @@ body {
   cursor: pointer;
 }
 
-.menu-view {
-  display: none;
+.menu-view,
+.reviews-view {
+    display: none;
 }
-.menu-view.active {
-  display: block;
+
+.menu-view.active,
+.reviews-view.active {
+    display: block;
 }
 
 /* Bottom navigation */
@@ -465,3 +468,57 @@ body {
     background: linear-gradient(to right, transparent, var(--color-background));
     pointer-events: none;
 } */
+
+.reviews-view {
+    display: none;
+    padding: var(--spacing-md);
+}
+
+.reviews-view.active {
+    display: block;
+}
+
+.review-card {
+    background: var(--color-cream);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.reviewer-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-info h4 {
+    margin: 0 0 var(--spacing-xs);
+}
+
+.review-text {
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+/* Make sure these styles are not being overridden */
+.reviews-container {
+    padding: var(--spacing-md);
+}
