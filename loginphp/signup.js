@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Back button handler
     backBtn.addEventListener('click', () => {
-        window.location.href = 'login.html';
+        window.location.href = 'login.php';
     });
 
     signupForm.addEventListener('submit', async (e) => {

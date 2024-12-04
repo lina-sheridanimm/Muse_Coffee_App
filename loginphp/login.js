@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Login button handler
     loginBtn.addEventListener('click', () => {
-        window.location.href = 'emaillogin.php';
+        window.location.href = 'emaillogin.html';
     });
 
     // Signup button handler
