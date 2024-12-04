@@ -2,19 +2,19 @@
 :root {
     /* Arabica Adventurer Theme */
     --arabica-main: #562B15;
-    --arabica-fade: rgba(86, 43, 21, 0.6);
+    --arabica-fade: rgba(86, 43, 21, 0.5);
 
     /* Matcha Mystic Theme */
     --matcha-main: #00580D;
-    --matcha-fade: rgba(0, 88, 13, 0.6);
+    --matcha-fade: rgba(0, 88, 13, 0.5);
 
     /* Espresso Emperor Theme */
     --espresso-main: #F07331;
-    --espresso-fade: rgba(240, 115, 49, 0.6);
+    --espresso-fade: rgba(240, 115, 49, 0.5);
 
     /* Mocha Muse Theme */
-    --mocha-main: #F6C07E;
-    --mocha-fade: rgba(246, 192, 126, 0.6);
+    --mocha-main: #F9D9B2;
+    --mocha-fade: rgba(246, 192, 126, 0.5);
 
     /* Common colors */
     --color-cream: #FAF2E0;
@@ -31,6 +31,8 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #f5f5f5;
+    font-family: "Urbanist", sans-serif;
+    font-weight:500;
 }
 
 /* Container styles */
@@ -82,6 +84,7 @@ body {
 
 /* User info section */
 .user-info {
+    font-family: "Urbanist", sans-serif;
     padding: 20px;
     text-align: center;
     position: relative;
@@ -132,6 +135,7 @@ body {
 .username {
     margin: 30px 0 5px;
     font-size: 24px;
+    font-weight:800;
     margin-top: 35px;
 }
 
