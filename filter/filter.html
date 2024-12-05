@@ -19,18 +19,26 @@
             <div class="searchbar">
                 <i class="searchIcon"></i>
                 <input type="text" placeholder="Search"/>
+                <!-- user profile image hardcoded for now! -->
                 <img src="../profile/assets/users/user1.png" class="profileImg">
             </div>
         </div>
             <div id="results">
                 <div class="resultsHead"></div> <!--clickable area to expand results, only the top bit-->
                 <div class="resultsContent">
-                    testing testing testing
+                    <div class="contentHead">
+                        <img src="./assets/filter.png" class="filtericon">
+                        <span> just some sample text to show the side scrolling works, will add the selected filter options later :D</span>
+                    </div>
+
+                    <h1>All Results</h1>
+                    <div class="cafelist">
+                    </div>
                 </div>
 
                 <div class="toolbar">
                     <div class="toolItem">
-                        <img src="./assets/location.png" class="toolIcon" width="25px" height="25px">
+                        <img src="./assets/location.png" class="toolIcon">
                         <span>Explore</span>
                     </div>
                     <div class="toolItem">
@@ -46,6 +54,6 @@
        </div> 
     </div>
 
-<script src="filter.js"></script>
+<script src="filter.js" defer></script>
 </body>
 </html>

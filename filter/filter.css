@@ -124,9 +124,51 @@ input[type="text"] {
     overflow-y: auto; /* enable scrolling for overflow content*/
 }
 
+.resultsContent h1 {
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
 #results.expanded {
     height: calc(100vh - 200px);
     border-radius: 40px;
+}
+
+/* filtering toolbar at the top of the results */
+.contentHead {
+    width: 100%;
+    top: 0;
+    border-bottom: 2px solid #DEDEDE;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100%;
+    scrollbar-width: none;
+}
+
+.contentHead img {
+    width: 25px;
+    height: 25px;
+    left: 0;
+}
+
+.cafeimg {
+    width: 150px;
+    height: 100px;
+    padding-top: 20px;
+}
+
+.cafe {
+    border-bottom: 2px solid #DEDEDE;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+.cafe h2 {
+    font-size: 16px;
 }
 
 .toolbar {
