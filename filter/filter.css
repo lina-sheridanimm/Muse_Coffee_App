@@ -107,6 +107,7 @@ input[type="text"] {
     border-radius: 2px;
 }
 
+/* top 40px of the results so it only expands/hides when you click at the top */
 .resultsHead {
     height: 40px;
     width: 100%;
@@ -134,6 +135,26 @@ input[type="text"] {
     border-radius: 40px;
 }
 
+.contentHead button {
+    display: inline-block;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid #DEDEDE;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.contentHead button:active {
+    transform: scale(0.95);
+}
+
 /* filtering toolbar at the top of the results */
 .contentHead {
     width: 100%;
@@ -155,20 +176,29 @@ input[type="text"] {
     left: 0;
 }
 
+.cafelist {
+    padding-bottom: 60px;
+}
+
+.cafe {
+    border-bottom: 2px solid #DEDEDE;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    line-height: 25px;
+}
+
 .cafeimg {
     width: 150px;
     height: 100px;
     padding-top: 20px;
 }
 
-.cafe {
-    border-bottom: 2px solid #DEDEDE;
-    padding-top: 20px;
-    padding-bottom: 25px;
-}
-
 .cafe h2 {
     font-size: 16px;
+}
+
+.cafe span {
+    font-size: 14px;
 }
 
 .toolbar {
