@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 // Redirect based on user type
                 if (data.isNewUser) {
-                    window.location.href = 'main.html';
+                    window.location.href = '../quiz/quiz.html';
                 } else {
-                    window.location.href = 'home.html';
+                    window.location.href = '../filter/filter.html';
                 }
             } else {
                 errorMessage.style.display = 'block';

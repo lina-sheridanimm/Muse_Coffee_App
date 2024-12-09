@@ -103,6 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
     
             currentQuestionIndex++;
+
+            console.log(currentQuestionIndex);
             
             if (currentQuestionIndex >= questions.length) {
                 showResult();
@@ -115,22 +117,26 @@ document.addEventListener("DOMContentLoaded", () => {
         function showResult() {
             let resultText = '';
             
-            if (arabicaAdventurer > Math.max(matchaMystic, espressoEmperor, mochaMuse)) {
-                resultText = 'Arabica Adventurer!';
-            } else if (matchaMystic > Math.max(arabicaAdventurer, espressoEmperor, mochaMuse)) {
-                resultText = 'Matcha Mystic!';
-            } else if (espressoEmperor > Math.max(arabicaAdventurer, matchaMystic, mochaMuse)) {
-                resultText = 'Espresso Emperor!';
-            } else {
-                resultText = 'Mocha Muse!';
-            }
-            
             const questionElement = document.querySelector('#question');
             const qimg = document.querySelector('#questionimg');
             const choices = document.querySelector('#choices');
-            questionElement.style.display = "none";
-            qimg.style.display = "none";
-            choices.style.display = "none";
+            questionElement.remove();
+            qimg.remove();
+            choices.remove();
+
+            if (arabicaAdventurer > Math.max(matchaMystic, espressoEmperor, mochaMuse)) {
+                resultText = 'Arabica Adventurer!';
+                submitQuizResult(1);
+            } else if (matchaMystic > Math.max(arabicaAdventurer, espressoEmperor, mochaMuse)) {
+                resultText = 'Matcha Mystic!';
+                submitQuizResult(2);
+            } else if (espressoEmperor > Math.max(arabicaAdventurer, matchaMystic, mochaMuse)) {
+                resultText = 'Espresso Emperor!';
+                submitQuizResult(3);
+            } else {
+                resultText = 'Mocha Muse!';
+                submitQuizResult(4);
+            }
 
             const resultContainer = document.querySelector('.result');
             resultContainer.textContent = resultText;
@@ -165,3 +171,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     personalityQuiz();   
 })
+
+
+// Function to send quiz result to the server
+function submitQuizResult(personalityTypeId) {
+    fetch('quiz.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `personality_type_id=${encodeURIComponent(personalityTypeId)}`,
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'success') {
+                goToMain();
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function goToMain() {
+    const resultContainer = document.querySelector(".result")
+    const submit = document.createElement('div');
+    submit.classList.add('submitContainer');
+
+    submit.innerHTML = `<button id="continueButton" class="continue-button">Continue</button>`;
+
+    resultContainer.appendChild(submit);
+
+    document.querySelector("#continueButton").addEventListener("click", () => {
+        window.location.href = '../filter/filter.html';
+    })
+
+}

@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $host = "localhost";
     $dbname = "brewmatch";
     $username = "root";  
-    $password = "";      
+    $password = "root";      
 
     $response = array(
         'success' => false,
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Insert new user
-        $stmt = $pdo->prepare("INSERT INTO brewmatch_users (user_name, email, personality) VALUES (?, ?, '')");
+        $stmt = $pdo->prepare("INSERT INTO brewmatch_users (user_name, email) VALUES (?, ?)");
         if ($stmt->execute([$username, $email])) {
             $_SESSION['signup_email'] = $email;
             $_SESSION['signup_username'] = $username;

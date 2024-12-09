@@ -145,6 +145,20 @@ h1.result {
     transform: translateX(-50%);
 }
 
+#continueButton {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    background-color: #582F1C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 50%;
+}
+
+#continueButton:active {
+    transform: scale(0.95);
+}
+
 @keyframes moveIcon {
     from {
         left: 0%;
