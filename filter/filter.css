@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: none;
 }
 
 body {
@@ -123,9 +124,10 @@ input[type="text"] {
     margin-top: 40px; /* below clickable area */
     height: calc(100% - 40px);
     overflow-y: auto; /* enable scrolling for overflow content*/
+    scrollbar-width: none;
 }
 
-.resultsContent h1 {
+h1 {
     font-size: 18px;
     letter-spacing: 1px;
 }
@@ -135,7 +137,7 @@ input[type="text"] {
     border-radius: 40px;
 }
 
-.contentHead button {
+.filterButton {
     display: inline-block;
     padding: 5px;
     margin-left: 5px;
@@ -151,7 +153,11 @@ input[type="text"] {
     white-space: nowrap;
 }
 
-.contentHead button:active {
+.filterButton.active {
+    background-color: #DEDEDE;
+}
+
+button:active {
     transform: scale(0.95);
 }
 
@@ -235,4 +241,93 @@ input[type="text"] {
 
 .toolbar img:hover {
     transform: scale(1.1);
+}
+
+#filters {
+    font-size: 14px;
+    background-color: white;
+    border-radius: 40px;
+    line-height: 30px;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: auto;
+    scrollbar-width: none;
+    transition: all 0.6s ease;
+}
+
+#filters.active {
+    opacity: 1;
+    visibility: visible;
+    height: calc(100vh - 150px);
+}
+
+#filterHead {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid #DEDEDE;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    position: sticky;
+    width:100%;
+    top: 0;
+    margin: 0;
+}
+
+#filterHead h1 {
+    font-size: 14px;
+}
+
+#filterHead img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2 ease;
+}
+
+#filterHead img:hover {
+    transform: scale(1.1);
+}
+
+.filterContainer {
+    border-bottom: 2px solid #DEDEDE;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+#submitbutton {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    bottom: 0;
+}
+
+#filterButton {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 16px;
+    background-color: #582F1C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    bottom: 0;
+    height: 50px;
+    width: 80%;
+}
+
+#filterButton:active {
+    transform: scale(0.95);
+    transform-origin: center;
 }

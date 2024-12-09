@@ -15,45 +15,142 @@
     
     <div id="app">
        <div class="mainpage">
-        <div class="searchContainer">
-            <div class="searchbar">
-                <i class="searchIcon"></i>
-                <input type="text" placeholder="Search"/>
-                <!-- user profile image hardcoded for now! -->
-                <img src="../profile/assets/users/user1.png" class="profileImg">
+            <div class="searchContainer">
+                <div class="searchbar">
+                    <i class="searchIcon"></i>
+                    <input type="text" placeholder="Search"/>
+                    <!-- user profile image hardcoded for now! -->
+                    <img src="../profile/assets/users/user1.png" class="profileImg">
+                </div>
             </div>
-        </div>
             <div id="results">
                 <div class="resultsHead"></div> <!--clickable area to expand results, only the top bit-->
                 <div class="resultsContent">
                     <div class="contentHead">
                         <img src="./assets/filter.png" class="filtericon">
-                        <button class="button" id="sortby">Sort by ▼</button>
-                        <button class="button" id="toprated">Top rated</button>
-                        <button class="button" id="takeout">Offers takeout</button>
-                        <button class="button" id="noncoffee">Non-coffee Options</button>
+                        <button class="filterButton" id="sortby">Sort by ▼</button>
+                        <button class="filterButton" id="toprated">Top rated</button>
+                        <button class="filterButton" id="takeout">Offers takeout</button>
+                        <button class="filterButton" id="noncoffee">Non-coffee Options</button>
                     </div>
 
                     <h1>All Results</h1>
+                    
                     <div class="cafelist">
                     </div>
                 </div>
 
                 <div class="toolbar">
                     <div class="toolItem">
-                        <img src="./assets/location.png" class="toolIcon">
+                        <img src="./assets/location.png">
                         <span>Explore</span>
                     </div>
                     <div class="toolItem">
-                        <img src="./assets/coffee.png" class="toolIcon">
+                        <img src="./assets/coffee.png">
                         <span>Recommendations</span>
                     </div>
                     <div class="toolItem">
-                        <img src="./assets/bean.png" class="toolIcon">
+                        <img src="./assets/bean.png">
                         <span>You</span>
                     </div>
                 </div>
             </div>
+
+            <form id="filters">
+                <div id="filterHead">
+                    <img src="./assets/close.png" id="closefilter">
+                    <h1>Filters</h1>
+                    <img src="./assets/revert.png" id="revertfilter">
+                </div>
+                <div class="filterContainer">
+                    <h1>Distance</h1>
+                    <input type="radio" id="any" value="anydistance" name="distance">
+                    <label for="any">Any Distance</label><br>
+                    <input type="radio" id="1mile" value="1 mile" name="distance">
+                    <label for="1mile">1 mile</label><br>
+                    <input type="radio" id="3mile" value="3 mile" name="distance">
+                    <label for="3mile">3 mile</label><br>
+                    <input type="radio" id="any" value="5 mile" name="distance">
+                    <label for="5mile">5 mile</label><br>
+                </div>
+
+                <div class="filterContainer">
+                    <h1>Ambience</h1>
+                    <input type="radio" id="qc" value="quiet & cozy" name="ambience">
+                    <label for="qc">quiet & cozy</label><br>
+                    <input type="radio" id="ml" value="modern & lively" name="ambience">
+                    <label for="ml">modern & lively</label><br>
+                    <input type="radio" id="cr" value="classic & refined" name="ambience">
+                    <label for="cr">classic & refined</label><br>
+                    <input type="radio" id="ae" value="artistic & eclectic" name="ambience">
+                    <label for="ae">artistic & eclectic</label><br>
+                </div>
+
+                <div class="filterContainer">
+                    <h1>Meal</h1>
+                    <input type="checkbox" id="breakfast" value="Good for Breakfast" name="meal">
+                    <label for="breakfast">Good for Breakfast</label><br>
+                    <input type="checkbox" id="brunch" value="Good for Brunch" name="meal">
+                    <label for="brunch">Good for Brunch</label><br>
+                    <input type="checkbox" id="lunch" value="Good for Lunch" name="meal">
+                    <label for="lunch">Good for Lunch</label><br>
+                    <input type="checkbox" id="dessert" value="Good for Dessert" name="meal">
+                    <label for="dessert">Good for Dessert</label><br>
+                </div>
+
+                <div class="filterContainer">
+                    <h1>Drink</h1>
+                    <input type="checkbox" id="seasonal" value="Seasonal/Themed Menu" name="drink">
+                    <label for="seasonal">Seasonal/Themed Menu</label><br>
+                    <input type="checkbox" id="nocoffee" value="Non-coffee Options" name="drink">
+                    <label for="nocoffee">Non-coffee Options</label><br>
+                    <input type="checkbox" id="pourover" value="Pour-over Coffee" name="drink">
+                    <label for="pourover">Pour-over Cofee</label><br>
+                    <input type="checkbox" id="handdrip" value="Hand-drip Options" name="drink">
+                    <label for="handdrip">Hand-drip Options</label><br>
+                </div>
+
+                <div class="filterContainer">
+                    <h1>Good For</h1>
+                    <input type="checkbox" id="pet" value="Pet" name="goodfor">
+                    <label for="pet">Pet</label><br>
+                    <input type="checkbox" id="kids" value="Kids" name="goodfor">
+                    <label for="kids">Kids</label><br>
+                    <input type="checkbox" id="groups" value="Groups" name="goodfor">
+                    <label for="groups">Groups</label><br>
+                    <input type="checkbox" id="event" value="Event" name="goodfor">
+                    <label for="event">Event</label><br>
+                    <input type="checkbox" id="study" value="Study" name="goodfor">
+                    <label for="study">Study</label><br>
+                    <input type="checkbox" id="work" value="Work" name="goodfor">
+                    <label for="work">Work</label><br>
+                </div>
+
+                <div class="filterContainer">
+                    <h1>Amenities</h1>
+                    <input type="checkbox" id="delivery" value="Offers Delivery" name="amenity">
+                    <label for="delivery">Offers Delivery</label><br>
+                    <input type="checkbox" id="takeout" value="Offers Takeout" name="amenity">
+                    <label for="takeout">Offers Takeout</label><br>
+                    <input type="checkbox" id="reso" value="Takes Reservation" name="amenity">
+                    <label for="reso">Takes Reservation</label><br>
+                    <input type="checkbox" id="wifi" value="Free Wi-Fi" name="amenity">
+                    <label for="wifi">Free Wi-Fi</label><br>
+                    <input type="checkbox" id="outdoor" value="Outdoor Seating" name="amenity">
+                    <label for="outdoor">Outdoor Seating</label><br>
+                    <input type="checkbox" id="wheelchair" value="Wheelchair Accessible" name="amenity">
+                    <label for="wheelchair">Wheelchair Accessible</label><br>
+                    <input type="checkbox" id="charging" value="Charging socket provided" name="amenity">
+                    <label for="charging">Charging socket provided</label><br>
+                    <input type="checkbox" id="247" value="24/7" name="amenity">
+                    <label for="247">24/7</label><br>
+                </div>
+
+                <div id="submitbutton">
+                    <input type="submit" value="Apply" id="filterButton">
+                </div>
+        </form>
+
        </div> 
     </div>
 
