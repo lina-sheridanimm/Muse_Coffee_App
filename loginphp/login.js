@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Guest button handler
     guestBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.href = 'main.php';
+        window.location.href = '../filter/filter.html';
     });
 });
