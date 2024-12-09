@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         
             const progressIcon = document.getElementById('progressIcon');
-            const segmentWidth = 100 / progressSegments.length; 
+            const segmentWidth = 90 / progressSegments.length; 
             const iconPosition = Math.min(segmentWidth * currentQuestionIndex, 100);
         
             progressIcon.style.left = `${iconPosition}%`; // Update position directly based on segments

@@ -24,19 +24,27 @@
 }
 
 body {
-  font-family: "Urbanist", sans-serif;
-  font-weight:500;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   background-color: #f5f5f5;
+  font-family: "Urbanist", sans-serif;
+  font-weight: 500;
 }
 
 /* / Container / */
 .profile-container {
+  position: relative;
   width: 390px;
   height: 844px;
   margin: 0 auto;
   background: var(--color-background);
   overflow-y: auto;
-  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding-bottom: 60px;
 }
 
 /* / Header / */
@@ -405,14 +413,17 @@ body {
 
 /* Bottom navigation */
 .bottom-nav {
-  margin-top: auto;
+  position: fixed;
+  bottom: 0;
+  width: 390px;
+  height: auto;
   padding: 15px 0;
-  background-color: var(--color-white);
+  background-color: #F2F6FC;
   display: flex;
   justify-content: space-around;
   border-top: 1px solid #f0f0f0;
-  position: relative;
-  z-index: 1;
+  z-index: 100;
+  margin-bottom: 65px;
 }
 
 .nav-item {
@@ -420,7 +431,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #666666;
+  color: #582F1C;
   font-size: 12px;
   gap: 5px;
 }
@@ -429,17 +440,21 @@ body {
   font-size: 24px;
 }
 
-.nav-item.active {
-  color: var(--arabica-main);
+/* Hover state */
+.nav-item:hover,
+.nav-item:hover .material-icons {
+  color: #F07331;
+}
+
+/* Active state for the current section */
+.nav-item.active,
+.nav-item.active .material-icons {
+  color: #F07331;
 }
 
 .nav-item span:not(.material-icons) {
   font-size: 12px;
   margin-top: 4px;
-}
-
-.nav-item .material-icons {
-  font-size: 28px;
 }
 
 /* / Media Query for smaller screens / */
