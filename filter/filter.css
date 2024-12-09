@@ -6,8 +6,9 @@
 }
 
 body {
-    background-color: #582F1C;
+    background-color: #f5f5f5;
     font-family: 'Urbanist', sans-serif;
+    font-weight:500;
 }
 
 #app {
@@ -19,22 +20,20 @@ body {
 
 .mainpage {
     background-color: white;
-    width: 100%;
-    max-width: 430px;
-    min-height: 932px;
-    border-radius: 40px;
-    padding: 20px;
+    width: 390px;
+    height: 844px;
+    margin: 0 auto;
+    overflow-y: auto;
     position: relative;
     display: flex;
     flex-direction: column;
     background-image: url(./assets/map.png);
     background-size: cover;
     background-position: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .searchContainer {
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
     position: absolute;
     top: 0;
     left: 0;
@@ -83,7 +82,10 @@ input[type="text"] {
 }
 
 #results {
-    border-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -94,12 +96,13 @@ input[type="text"] {
     padding: 20px;
     transition: all 0.3s ease;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 #results::before {
     content: "";
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
@@ -108,7 +111,6 @@ input[type="text"] {
     border-radius: 2px;
 }
 
-/* top 40px of the results so it only expands/hides when you click at the top */
 .resultsHead {
     height: 40px;
     width: 100%;
@@ -117,13 +119,13 @@ input[type="text"] {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2; /* makes sure the clickable area is on top of everything else */
+    z-index: 2;
 }
 
 .resultsContent {
-    margin-top: 40px; /* below clickable area */
+    margin-top: 25px;
     height: calc(100% - 40px);
-    overflow-y: auto; /* enable scrolling for overflow content*/
+    overflow-y: auto;
     scrollbar-width: none;
 }
 
@@ -133,8 +135,9 @@ h1 {
 }
 
 #results.expanded {
-    height: calc(100vh - 200px);
-    border-radius: 40px;
+    height: calc(100vh - 260px);
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
 }
 
 .filterButton {
@@ -213,7 +216,7 @@ button:active {
     color: #582F1C;
     box-sizing: border-box;
     position: absolute;
-    height: 60px;
+    height: 80px;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -221,6 +224,7 @@ button:active {
     justify-content: space-around;
     align-items: center;
     box-shadow: 0px -4px 8px #DEDEDE;
+    border-radius: 0;
 }
 
 .toolItem {
@@ -230,23 +234,27 @@ button:active {
     align-items: center;
     text-align: center;
     font-size: 12px;
+    gap: 5px;
 }
 
-.toolbar img {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    transition: transform 0.2 ease;
+.toolItem span:not(.material-icons) {
+    font-size: 12px;
+    margin-top: 4px;
 }
 
-.toolbar img:hover {
-    transform: scale(1.1);
+.toolItem:hover {
+    color: #F07331;
+}
+
+.explore {
+    color: #F07331 !important;
 }
 
 #filters {
     font-size: 14px;
     background-color: white;
-    border-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
     line-height: 30px;
     opacity: 0;
     visibility: hidden;
@@ -261,6 +269,7 @@ button:active {
     overflow: auto;
     scrollbar-width: none;
     transition: all 0.6s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 #filters.active {
@@ -286,7 +295,7 @@ button:active {
 }
 
 #filterHead h1 {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #filterHead img {
@@ -302,8 +311,8 @@ button:active {
 
 .filterContainer {
     border-bottom: 2px solid #DEDEDE;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 25px;
 }
 
 #submitbutton {
@@ -330,4 +339,8 @@ button:active {
 #filterButton:active {
     transform: scale(0.95);
     transform-origin: center;
+}
+
+#filterButton:hover {
+    background-color: #F07331;
 }
