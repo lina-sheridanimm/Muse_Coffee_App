@@ -35,8 +35,6 @@ $sql = "
     GROUP BY bc.cafe_id
 ";
 
-// cant do open/close for the list cuz not all cafes have the hours data :'(
-
 $result = $conn->query($sql);
 
 $cafes = [];

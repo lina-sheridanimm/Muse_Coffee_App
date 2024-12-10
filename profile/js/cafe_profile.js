@@ -260,7 +260,7 @@ class TabSwitcher {
             
             if (data.status === 'success') {
                 const reviewsHTML = data.reviews.map(review => `
-                    <div class="review-card" onclick="window.location.href='user-page.php?id=${review.user_id}'">
+                    <div class="review-card">
                         <div class="review-header">
                             <img src="assets/users/${review.portrait_image}" alt="${review.user_name}" class="reviewer-image">
                             <div class="reviewer-info">

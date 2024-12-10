@@ -17,7 +17,7 @@
     <div class="profile-container">
       <!-- 1. Header Navigation -->
       <header class="page-header">
-        <button class="back-btn" aria-label="Back to all results">
+        <button class="back-btn" aria-label="Back to all results" onclick="window.location.href='../filter/filter.html'">
           <span class="material-icons">arrow_back</span>
         </button>
       </header>
@@ -141,18 +141,18 @@
 
       <!-- Bottom Navigation -->
       <nav class="bottom-nav">
-        <a href="#" class="nav-item active">
-          <span class="material-icons">explore</span>
-          <span>Explore</span>
-        </a>
-        <a href="#" class="nav-item">
-          <span class="material-icons">coffee</span>
-          <span>Recommendations</span>
-        </a>
-        <a href="#" class="nav-item">
-          <span class="material-icons">person</span>
-          <span>You</span>
-        </a>
+        <div class="nav-item active" onclick="window.location.href='../filter/filter.html'">
+            <span class="material-icons">explore</span>
+            <span>Explore</span>
+        </div>
+        <div class="nav-item">
+            <span class="material-icons">coffee</span>
+            <span>Recommendations</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='../profile/user-page.php'">
+            <span class="material-icons">person</span>
+            <span>You</span>
+        </div>
       </nav>
     </div>
 
@@ -214,7 +214,7 @@
                       let foundNextOpen = false;
                       for(let i = 0; i < 7; i++) {
                           nextDay.setDate(nextDay.getDate() + 1);
-                          const nextDayName = nextDay.toLocaleLowerCase().slice(0,3);
+                          const nextDayName = nextDay.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase().slice(0, 3);
                           const nextDayHours = cafe.open_hours[nextDayName];
                           
                           if (nextDayHours) {
