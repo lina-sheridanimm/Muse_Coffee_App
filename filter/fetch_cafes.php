@@ -4,6 +4,15 @@ $username = "root";
 $password = "root"; 
 $dbname = "brewmatch"; 
 
+session_start();
+
+$_SESSION['user_id'];
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../loginphp/emaillogin.html');
+    exit();
+}
+
 header('Content-Type: application/json; charset=utf-8');
 
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -3,6 +3,16 @@
 const resultsDiv = document.querySelector('#results');
 const resultsHeader = document.querySelector('.resultsHead');
 const toolbar = document.querySelector('.toolbar')
+const profilepic = document.querySelector(".profileImg");
+
+// get profile photo for the logged in user
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('fetch_profilepic.php')
+        .then(response => response.json())
+        .then(data => {
+            profilepic.src = `../profile/assets/users/${data.portrait_image}`;
+        })
+})
 
 toggleButtons();
 
@@ -90,19 +100,22 @@ let currentFilter = null;
 function toggleFilter(filter, buttonId) {
 
     const button = document.querySelector(`#${buttonId}`)
+    const allButtons = document.querySelectorAll(".filterButton");
 
     if (currentFilter === filter) {
         listCafes();
         currentFilter = null;
-        button.classList.remove("active");
+        allButtons.forEach(btn => btn.classList.remove("active"));
     }
     else {
         listCafes(filter);
         currentFilter = filter;
         // remove active from all buttons to ensure one is highlighted at a time
-        document.querySelectorAll(".filterButton").forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active") // only highlight the active button
+        allButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active"); // only highlight the active button
     }
+
+    allButtons.forEach(btn => (btn.style.pointerEvents = "auto"));
 }
 
 // filter options for the predefined buttons 
@@ -211,7 +224,11 @@ function listCafesMultiple() {
                     cafeDiv.appendChild(cafeName);
     
                     const cafeRating = document.createElement('span');
-                    cafeRating.innerHTML = "☕☕☕☕ (" + cafe.rating + ")";
+                    if (cafe.rating > 4.6) {
+                        cafeRating.innerHTML = "☕☕☕☕☕ (" + cafe.rating + ")"
+                    } else {
+                        cafeRating.innerHTML = "☕☕☕☕ (" + cafe.rating + ")"
+                    }
                     cafeDiv.appendChild(cafeRating);
     
                     const cafeLocation = document.createElement('p');
@@ -223,7 +240,7 @@ function listCafesMultiple() {
                     cafeDiv.appendChild(cafeDist);
     
                     document.querySelector('.cafelist').appendChild(cafeDiv);
-                });
+                })
             }
         });
 }
@@ -239,10 +256,16 @@ function toggleSortBy() {
 
 document.querySelector("#filterButton").addEventListener("click", (event) => {
     event.preventDefault(); 
+
+    if (!resultsDiv.classList.contains('expanded')) {
+        resultsDiv.classList.add('expanded');
+    }
+
     listCafesMultiple(); 
 
     filterMenu.classList.remove("active");
     toggleSortBy();
+    toggleButtons();
 });
 
 document.querySelector("#sortby").addEventListener("click", () => {

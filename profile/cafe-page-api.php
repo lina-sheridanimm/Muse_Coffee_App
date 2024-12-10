@@ -117,10 +117,7 @@ $cafe_data = [
     }, $photos)
 ];
 
-//"ambience":"modern & lively"
 
-
-// Return JSON response
 echo json_encode([
     'status' => 'success',
     'data' =>  $cafe_data
