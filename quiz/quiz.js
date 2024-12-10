@@ -115,31 +115,49 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     
         function showResult() {
-            let resultText = '';
+            // let resultText = '';
+
+            const quizContainer = document.querySelector('.quiz');
             
             const questionElement = document.querySelector('#question');
             const qimg = document.querySelector('#questionimg');
             const choices = document.querySelector('#choices');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressIcon = document.getElementById('progressIcon');
             questionElement.remove();
             qimg.remove();
             choices.remove();
+            progressBar.remove();
+            progressIcon.remove();
 
             if (arabicaAdventurer > Math.max(matchaMystic, espressoEmperor, mochaMuse)) {
-                resultText = 'Arabica Adventurer!';
+                // resultText = 'Arabica Adventurer!';
+                quizContainer.style.backgroundImage = "url('assets/aa.png')";
+                quizContainer.style.backgroundSize = 'cover'; 
+                quizContainer.style.backgroundPosition = 'center';
                 submitQuizResult(1);
             } else if (matchaMystic > Math.max(arabicaAdventurer, espressoEmperor, mochaMuse)) {
-                resultText = 'Matcha Mystic!';
+                // resultText = 'Matcha Mystic!';
+                quizContainer.style.backgroundImage = "url('assets/mamy.png')";
+                quizContainer.style.backgroundSize = 'cover'; 
+                quizContainer.style.backgroundPosition = 'center';
                 submitQuizResult(2);
             } else if (espressoEmperor > Math.max(arabicaAdventurer, matchaMystic, mochaMuse)) {
-                resultText = 'Espresso Emperor!';
+                // resultText = 'Espresso Emperor!';
+                quizContainer.style.backgroundImage = "url('assets/ee.png')";
+                quizContainer.style.backgroundSize = 'cover'; 
+                quizContainer.style.backgroundPosition = 'center';
                 submitQuizResult(3);
             } else {
-                resultText = 'Mocha Muse!';
+                // resultText = 'Mocha Muse!';
+                quizContainer.style.backgroundImage = "url('assets/momu.png')";
+                quizContainer.style.backgroundSize = 'cover'; 
+                quizContainer.style.backgroundPosition = 'center';
                 submitQuizResult(4);
             }
 
-            const resultContainer = document.querySelector('.result');
-            resultContainer.textContent = resultText;
+            // const resultContainer = document.querySelector('.result');
+            // resultContainer.textContent = resultText;
         }
     
         function startProgress() {

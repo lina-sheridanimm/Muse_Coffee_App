@@ -286,6 +286,27 @@ class TabSwitcher {
     }
 }
 
+
+const reviewBtn = document.getElementById('addreview');
+const reviewModal = document.getElementById('review-modal');
+const closeModal = document.getElementById('close-modal');
+const reviewForm = document.getElementById('review-form');
+
+reviewBtn.addEventListener('click', () => {
+  reviewModal.style.display = 'flex';
+});
+
+closeModal.addEventListener('click', () => {
+  reviewModal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === reviewModal) {
+    reviewModal.style.display = 'none';
+  }
+});
+
+
 // // Initialize when DOM is loaded
 // document.addEventListener('DOMContentLoaded', () => {
 //     console.log('DOM loaded, initializing TabSwitcher');

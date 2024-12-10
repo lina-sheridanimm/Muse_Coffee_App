@@ -105,10 +105,8 @@ button.back:hover {
 .result {
     text-align: center;
     font-size: 24px;
-    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .progress-container {
@@ -159,6 +157,8 @@ button.back:hover {
     background-color: #582F1C;
     color: white;
     border: none;
+    bottom: 0;
+    padding-bottom: 5px;
     border-radius: 10px;
     width: 50%;
 }
