@@ -13,10 +13,4 @@ document.addEventListener('DOMContentLoaded', () => {
     signupBtn.addEventListener('click', () => {
         window.location.href = 'signup.php';
     });
-
-    // Guest button handler
-    guestBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = '../filter/filter.html';
-    });
 });

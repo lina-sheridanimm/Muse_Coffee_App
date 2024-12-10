@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    // handling pre-quiz page:
+
+    document.querySelector("#startquiz").addEventListener("click", () => {
+        document.querySelector('.pre-quiz').style.display = 'none';
+    })
+
+    // displaying personality quiz
     function personalityQuiz() {
         const questions = [
             {

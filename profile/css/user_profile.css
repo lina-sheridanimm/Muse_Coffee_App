@@ -156,6 +156,7 @@ body {
 }
 
 .message-btn, .edit-profile-btn {
+    font-family: 'Urbanist', sans-serif;
     padding: 10px 30px;
     border-radius: 25px;
     border: none;
@@ -263,6 +264,9 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     padding: 20px;
+    overflow: auto;
+    height: 400px;
+    scrollbar-width: none;
 }
 
 .review-grid.active {
@@ -277,6 +281,16 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.review-card h4 {
+    cursor: pointer;
+}
+
+.review-card:last-child {
+    margin-bottom: 50px;
 }
 
 .review-banner {
@@ -443,3 +457,99 @@ button:active {
     background-color: #FF0000;
     color: white;
 }
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: var(--color-cream);
+    color: #562B15;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transform: translate(72%,90%);
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  #review-form {
+    font-family: 'Urbanist', sans-serif;
+  }
+  
+  select {
+    appearance: none;
+    color: #562B15;
+    background-color: white;
+    border: 1px solid #562B15;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    width: 40%;
+  }
+  
+  textarea {
+    appearance: none;
+    color: #562B15;
+    border: 1px solid #562B15;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  #submitbtn {
+    font-family: 'Urbanist', sans-serif;
+    background-color: #562B15;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  #submitbtn:active {
+    transform: scale(0.95);
+  }
+
+  .edit-review-btn {
+    font-family: 'Urbanist', sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px, 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #deletebtn {
+    font-family: 'Urbanist', sans-serif;
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .logout-btn {
+    font-family: 'Urbanist', sans-serif;
+    padding: 10px 30px;
+    border-radius: 25px;
+    border: none;
+    font-size: 14px;
+  }

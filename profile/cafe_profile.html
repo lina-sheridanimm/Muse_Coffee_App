@@ -58,18 +58,36 @@
           </div>
 
           <div class="action-buttons">
-            <button class="action-btn" aria-label="More options">
-              <span class="material-icons">more_horiz</span>
-            </button>
-            <button class="action-btn" aria-label="Save to collection">
-              <span class="material-icons">bookmark_border</span>
-            </button>
-            <button class="action-btn" aria-label="Share">
-              <span class="material-icons">share</span>
+            <button class="action-btn" aria-label="Review">
+              <span class="material-icons" id="addreview">rate_review</span>
             </button>
           </div>
         </div>
       </section>
+
+      <!-- Review Modal -->
+      <div id="review-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span id="close-modal" class="close">&times;</span>
+          <h2>Add a Review</h2>
+          <form id="review-form">
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+              <option value="" disabled selected>Select a rating</option>
+              <option value="1">1 Bean</option>
+              <option value="2">2 Beans</option>
+              <option value="3">3 Beans</option>
+              <option value="4">4 Beans</option>
+              <option value="5">5 Beans</option>
+            </select>
+            <br><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+            <br><br>
+            <button type="submit" id="submitbtn">Submit Review</button>
+          </form>
+        </div>
+      </div>
 
       <!-- 4. Feature Tags -->
       <section class="feature-tags">

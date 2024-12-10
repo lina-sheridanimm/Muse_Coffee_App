@@ -31,7 +31,6 @@ session_start();
             <div class="action-buttons">
                 <button id="loginBtn" class="primary-button">Log in</button>
                 <button id="signupBtn" class="secondary-button">Sign up</button>
-                <a href="#" id="guestBtn" class="guest-link">Continue as a guest</a>
             </div>
         </div>
     </div>

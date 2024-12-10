@@ -306,6 +306,37 @@ window.addEventListener('click', (event) => {
   }
 });
 
+reviewForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const cafeId = parseInt(urlParams.get('id'), 10) ;
+    const rating = parseInt(document.getElementById('rating').value, 10);
+    const description = document.getElementById('description').value;
+
+    const requestData = { cafe_id: cafeId, rating, description };
+
+    // Log the request data to the console
+    console.log("POST Data:", requestData);
+
+    const response = await fetch('handle-reviews.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    });
+
+    const result = await response.json();
+    if (result.status === 'success') {
+        alert('Review submitted successfully!');
+        location.reload();
+    } else {
+        alert(result.message);
+    }
+});
+
+
 
 // // Initialize when DOM is loaded
 // document.addEventListener('DOMContentLoaded', () => {
