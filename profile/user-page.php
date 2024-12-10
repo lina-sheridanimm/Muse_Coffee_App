@@ -9,6 +9,23 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['bio'])) {
+    $bio = trim($_POST['bio']);
+    
+    try {
+        $stmt = $pdo->prepare("UPDATE brewmatch_users SET bio = ? WHERE user_id = ?");
+        $stmt->execute([$bio, $user_id]);
+        
+        $_SESSION['bio'] = $bio;
+        
+        echo json_encode(['status' => 'success', 'bio' => $bio]);
+        exit();
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to update bio.']);
+        exit();
+    }
+}
+
 try {
     $stmt = $pdo->prepare("
         SELECT u.*, pt.type_name, pt.type_badge_image 
@@ -20,17 +37,14 @@ try {
     $stmt->execute([$user_id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // If user not found, handle gracefully
     if (!$user) {
         die("User not found.");
     }
 
-    // Generate class name for the user's personality type
     $className = isset($user['type_name']) 
         ? strtolower(str_replace(' ', '-', $user['type_name'])) 
         : 'default-class';
 
-    // Fetch user reviews
     $reviewStmt = $pdo->prepare("
         SELECT r.*, c.name as cafe_name 
         FROM cafe_reviews r
@@ -45,6 +59,7 @@ try {
     die("Database error: " . $e->getMessage());
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,6 +85,19 @@ try {
             </button>
         </nav>
 
+        <!-- Account Deletion Popup -->
+        <div id="delete-account-popup" class="popup">
+            <div class="popup-content">
+                <span class="popup-close" onclick="closeDeletePopup()">&times;</span>
+                <h3>Are you sure you want to delete your account?</h3>
+                <p>This action cannot be undone.</p>
+                <div class="popup-actions">
+                    <button class="cancel-btn" onclick="closeDeletePopup()">Cancel</button>
+                    <button class="delete-btn" onclick="deleteAccount()">Delete Account</button>
+                </div>
+            </div>
+        </div>
+
         <!-- User Profile Section -->
         <div class="user-info">
             <div class="profile-banner">
@@ -86,6 +114,18 @@ try {
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <button class="edit-profile-btn <?php echo htmlspecialchars($className); ?>">Edit Profile</button>
+            </div>
+        </div>
+
+        <!-- Popup Modal for Editing Bio -->
+        <div id="edit-bio-popup" class="popup">
+            <div class="popup-content">
+                <span class="popup-close" onclick="closeBioPopup()">&times;</span>
+                <h3>Edit Bio</h3>
+                <form id="edit-bio-form">
+                    <textarea id="new-bio" name="bio" rows="4" placeholder="Enter your new bio..."><?php echo htmlspecialchars($user['bio']); ?></textarea>
+                    <button type="submit">Save</button>
+                </form>
             </div>
         </div>
 

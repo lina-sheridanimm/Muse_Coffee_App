@@ -2,45 +2,38 @@
 require_once '../config/db.php';
 header('Content-Type: application/json');
 
-$cafe_id = isset($_GET['cafe_id']) ? (int)$_GET['cafe_id'] : 1;
+session_start();
+
+// Get cafe_id from GET request
+$cafe_id = isset($_GET['cafe_id']) ? (int)$_GET['cafe_id'] : 0;
+$user_id = isset($_SESSION['user_id']);
+
+if ($cafe_id <= 0) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Invalid cafe ID'
+    ]);
+    exit;
+}
 
 try {
-    // Different SQL query based on cafe_id
-    if ($cafe_id == 1) {
-        // First cafe shows reviews from users 1 and 2
-        $stmt = $pdo->prepare("
-            SELECT r.*, u.user_name, u.portrait_image 
-            FROM cafe_reviews r
-            JOIN brewmatch_users u ON r.user_id = u.user_id
-            WHERE r.cafe_id = ? AND r.user_id IN (1, 2)
-            ORDER BY r.review_date DESC
-        ");
-    } elseif ($cafe_id == 2) {
-        // Second cafe shows review from user 3
-        $stmt = $pdo->prepare("
-            SELECT r.*, u.user_name, u.portrait_image 
-            FROM cafe_reviews r
-            JOIN brewmatch_users u ON r.user_id = u.user_id
-            WHERE r.cafe_id = ? AND r.user_id = 3
-            ORDER BY r.review_date DESC
-        ");
-    } else {
-        // Third cafe shows review from user 4
-        $stmt = $pdo->prepare("
-            SELECT r.*, u.user_name, u.portrait_image 
-            FROM cafe_reviews r
-            JOIN brewmatch_users u ON r.user_id = u.user_id
-            WHERE r.cafe_id = ? AND r.user_id = 4
-            ORDER BY r.review_date DESC
-        ");
-    }
+    // Fetch all reviews for the specified cafe_id
+    $stmt = $pdo->prepare("
+        SELECT r.*, u.user_name, u.portrait_image 
+        FROM cafe_reviews r
+        JOIN brewmatch_users u ON r.user_id = u.user_id
+        WHERE r.cafe_id = ?
+        ORDER BY r.review_date DESC
+    ");
     
     $stmt->execute([$cafe_id]);
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
+    // Log for debugging
     error_log('Reviews API called for cafe_id: ' . $cafe_id);
     error_log('Found reviews: ' . json_encode($reviews));
     
+    // Send the reviews as JSON response
     echo json_encode([
         'status' => 'success',
         'reviews' => $reviews
