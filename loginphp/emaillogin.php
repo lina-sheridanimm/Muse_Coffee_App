@@ -7,9 +7,7 @@ $username = "root";
 $password = "root";           
 $database = "brewmatch";    
 
-
 $conn = new mysqli($host, $username, $password, $database);
-
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -23,6 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $user_id = $row['user_id'];
+
+        $_SESSION['user_id'] = $user_id;
+
         header("Location: ../filter/filter.html");
         exit();
     } else {

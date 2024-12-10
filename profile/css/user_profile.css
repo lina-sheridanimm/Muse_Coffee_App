@@ -223,7 +223,6 @@ body {
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: #666666;
     font-size: 12px;
     gap: 5px;
 }
@@ -232,10 +231,25 @@ body {
     font-size: 24px;
 }
 
-
 .nav-item span:not(.material-icons) {
     font-size: 12px;
     margin-top: 4px;
+}
+
+.nav-item:hover {
+    color: #F07331;
+}
+
+.nav-item:hover .material-icons {
+    color: #F07331;
+}
+
+.nav-item.active {
+    color:#F07331 !important
+}
+
+.nav-item.active .material-icons {
+    color:#F07331
 }
 
 /* Review grid and card styles */
