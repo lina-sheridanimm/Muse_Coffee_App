@@ -62,7 +62,7 @@ function listCafes(filter = null) {
 
                 const cafeName = document.createElement('h2');
                 cafeName.classList.add('cafeName');
-                cafeName.innerHTML = cafe.name;
+                cafeName.innerHTML = `<a href="../profile/cafe_profile.html?id=${cafe.id}">${cafe.name}</a>`;
                 cafeDiv.appendChild(cafeName);
 
                 const cafeRating = document.createElement('span');
@@ -220,7 +220,7 @@ function listCafesMultiple() {
     
                     const cafeName = document.createElement('h2');
                     cafeName.classList.add('cafeName');
-                    cafeName.innerHTML = cafe.name;
+                    cafeName.innerHTML = `<a href="../profile/cafe_profile.html?id=${cafe.id}">${cafe.name}</a>`;
                     cafeDiv.appendChild(cafeName);
     
                     const cafeRating = document.createElement('span');

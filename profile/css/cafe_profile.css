@@ -499,7 +499,6 @@ body {
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-md);
-    cursor: pointer;
     transition: transform 0.2s ease;
 }
 

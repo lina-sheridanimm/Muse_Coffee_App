@@ -1,5 +1,7 @@
 <?php
 require_once '../config/db.php';
+
+session_start();
 // Simulated API response
 header('Content-Type: application/json');
 
