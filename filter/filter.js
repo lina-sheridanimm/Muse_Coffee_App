@@ -51,38 +51,51 @@ function listCafes(filter = null) {
 
             document.querySelector('.cafelist').innerHTML = '';
             
+            let index = 0;
+
             cafes.forEach((cafe) => {
                 const cafeDiv = document.createElement('div');
                 cafeDiv.classList.add('cafe');
 
                 const cafeImg = document.createElement('img');
                 cafeImg.classList.add('cafeimg');
-                cafeImg.src = "./assets/placeholder.jpg";
+                const imageIndex = (index % 10) + 1;
+                cafeImg.src = `./assets/cafe${imageIndex}.jpg`;
                 cafeDiv.appendChild(cafeImg);
+
+                const textContainer = document.createElement('div'); 
+                textContainer.classList.add('text'); 
 
                 const cafeName = document.createElement('h2');
                 cafeName.classList.add('cafeName');
                 cafeName.innerHTML = `<a href="../profile/cafe_profile.html?id=${cafe.id}">${cafe.name}</a>`;
-                cafeDiv.appendChild(cafeName);
+                textContainer.appendChild(cafeName);
 
                 const cafeRating = document.createElement('span');
-                if (cafe.rating > 4.6) {
-                    cafeRating.innerHTML = "☕☕☕☕☕ (" + cafe.rating + ")"
-                } else {
-                    cafeRating.innerHTML = "☕☕☕☕ (" + cafe.rating + ")"
-                }
-                cafeDiv.appendChild(cafeRating);
+                cafeRating.classList.add('cafeRating');
+                cafeRating.innerHTML =
+                    cafe.rating > 4.6
+                        ? "☕☕☕☕☕ (" + cafe.rating + ")"
+                        : "☕☕☕☕ (" + cafe.rating + ")";
+                textContainer.appendChild(cafeRating);
 
                 const cafeLocation = document.createElement('p');
+                cafeLocation.classList.add('cafeLocation');
                 cafeLocation.innerHTML = "📍 " + cafe.location.city;
-                cafeDiv.appendChild(cafeLocation);
+                textContainer.appendChild(cafeLocation);
 
                 const cafeDist = document.createElement('span');
+                cafeDist.classList.add('cafeDist');
                 cafeDist.innerHTML = cafe.location.distance;
-                cafeDiv.appendChild(cafeDist);
+                textContainer.appendChild(cafeDist);
 
+                cafeDiv.appendChild(textContainer);
                 document.querySelector('.cafelist').appendChild(cafeDiv);
-            })
+
+                index++; 
+            });
+
+
         })
 }
 
@@ -209,38 +222,49 @@ function listCafesMultiple() {
                 cafeListContainer.appendChild(message);
             }
             else {
+                let index = 0;
+
                 filteredCafes.forEach((cafe) => {
                     const cafeDiv = document.createElement('div');
                     cafeDiv.classList.add('cafe');
-    
+
                     const cafeImg = document.createElement('img');
                     cafeImg.classList.add('cafeimg');
-                    cafeImg.src = "./assets/placeholder.jpg";
+                    const imageIndex = (index % 10) + 1;
+                    cafeImg.src = `./assets/cafe${imageIndex}.jpg`;
                     cafeDiv.appendChild(cafeImg);
-    
+
+                    const textContainer = document.createElement('div'); 
+                    textContainer.classList.add('text'); 
+
                     const cafeName = document.createElement('h2');
                     cafeName.classList.add('cafeName');
                     cafeName.innerHTML = `<a href="../profile/cafe_profile.html?id=${cafe.id}">${cafe.name}</a>`;
-                    cafeDiv.appendChild(cafeName);
-    
+                    textContainer.appendChild(cafeName);
+
                     const cafeRating = document.createElement('span');
-                    if (cafe.rating > 4.6) {
-                        cafeRating.innerHTML = "☕☕☕☕☕ (" + cafe.rating + ")"
-                    } else {
-                        cafeRating.innerHTML = "☕☕☕☕ (" + cafe.rating + ")"
-                    }
-                    cafeDiv.appendChild(cafeRating);
-    
+                    cafeRating.classList.add('cafeRating');
+                    cafeRating.innerHTML =
+                        cafe.rating > 4.6
+                            ? "☕☕☕☕☕ (" + cafe.rating + ")"
+                            : "☕☕☕☕ (" + cafe.rating + ")";
+                    textContainer.appendChild(cafeRating);
+
                     const cafeLocation = document.createElement('p');
+                    cafeLocation.classList.add('cafeLocation');
                     cafeLocation.innerHTML = "📍 " + cafe.location.city;
-                    cafeDiv.appendChild(cafeLocation);
-    
+                    textContainer.appendChild(cafeLocation);
+
                     const cafeDist = document.createElement('span');
+                    cafeDist.classList.add('cafeDist');
                     cafeDist.innerHTML = cafe.location.distance;
-                    cafeDiv.appendChild(cafeDist);
-    
+                    textContainer.appendChild(cafeDist);
+
+                    cafeDiv.appendChild(textContainer);
                     document.querySelector('.cafelist').appendChild(cafeDiv);
-                })
+
+                    index++; 
+                });
             }
         });
 }

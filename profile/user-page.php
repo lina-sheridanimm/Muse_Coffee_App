@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 require_once '../config/db.php';
 
@@ -9,6 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
+// Update bio
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['bio'])) {
     $bio = trim($_POST['bio']);
     
@@ -26,7 +30,77 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['bio'])) {
     }
 }
 
+// review update
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // i had this for debugging but it wont work without this :')
+    $rawInput = file_get_contents('php://input');
+    $inputData = json_decode($rawInput, true);
+
+    if (isset($inputData['review_id'], $inputData['review_text'], $inputData['rating'])) {
+        $review_id = intval($inputData['review_id']);
+        $review_text = trim($inputData['review_text']);
+        $rating = intval($inputData['rating']);
+
+        try {
+            $stmt = $pdo->prepare("
+                UPDATE cafe_reviews
+                SET review_text = ?, rating = ?, review_date = NOW()
+                WHERE review_id = ? AND user_id = ?
+            ");
+            $stmt->execute([$review_text, $rating, $review_id, $user_id]);
+
+            if ($stmt->rowCount() > 0) {
+                echo json_encode(['status' => 'success', 'message' => 'Review updated successfully.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'No review updated. Check review ID or user ID.']);
+            }
+            exit();
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update review.']);
+            exit();
+        }
+    } else {
+        error_log("Missing required fields in input data.");
+        echo json_encode(['status' => 'error', 'message' => 'Missing required fields.']);
+        exit();
+    }
+}
+
+// review delete
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    $rawInput = file_get_contents('php://input');
+    $inputData = json_decode($rawInput, true);
+
+    if (isset($inputData['review_id'])) {
+        $review_id = intval($inputData['review_id']);
+
+        try {
+            $stmt = $pdo->prepare("
+                DELETE FROM cafe_reviews
+                WHERE review_id = ? AND user_id = ?
+            ");
+            $stmt->execute([$review_id, $user_id]);
+
+            if ($stmt->rowCount() > 0) {
+                echo json_encode(['status' => 'success', 'message' => 'Review deleted successfully.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'No review deleted. Check review ID or user ownership.']);
+            }
+            exit();
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => 'Failed to delete review.']);
+            exit();
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Missing review ID.']);
+        exit();
+    }
+}
+
 try {
+    // Fetch user details
     $stmt = $pdo->prepare("
         SELECT u.*, pt.type_name, pt.type_badge_image 
         FROM brewmatch_users u
@@ -45,6 +119,7 @@ try {
         ? strtolower(str_replace(' ', '-', $user['type_name'])) 
         : 'default-class';
 
+    // Fetch reviews
     $reviewStmt = $pdo->prepare("
         SELECT r.*, c.name as cafe_name 
         FROM cafe_reviews r
@@ -59,6 +134,7 @@ try {
     die("Database error: " . $e->getMessage());
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,6 +190,7 @@ try {
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <button class="edit-profile-btn <?php echo htmlspecialchars($className); ?>">Edit Profile</button>
+                <button class="logout-btn <?php echo htmlspecialchars($className); ?>" onclick="window.location.href='../loginphp/login.php'">Logout</button>
             </div>
         </div>
 
@@ -129,6 +206,31 @@ try {
             </div>
         </div>
 
+        <!-- Review Modal edit or delete popup -->
+        <div id="review-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Alter your Review</h2>
+            <form id="review-form">
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                <option value="" disabled selected>Select a rating</option>
+                <option value="1">1 Bean</option>
+                <option value="2">2 Beans</option>
+                <option value="3">3 Beans</option>
+                <option value="4">4 Beans</option>
+                <option value="5">5 Beans</option>
+                </select>
+                <br><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+                <br><br>
+                <button type="submit" id="submitbtn">Update Review</button>
+                <button type="button" id="deletebtn">Delete Review</button>
+            </form>
+            </div>
+        </div>
+
         <!-- Tabs Section -->
         <div class="tabs-section">
             <div class="tabs">
@@ -139,16 +241,23 @@ try {
             <!-- Tab Content -->
             <div class="tab-content">
                 <div class="review-grid active">
-                    <?php foreach ($reviews as $review): ?>
-                        <div class="review-card" onclick="window.location.href='cafe_profile.html?id=<?php echo $review['cafe_id']; ?>'">
-                            <div class="review-header">
-                                <h4><?php echo htmlspecialchars($review['cafe_name']); ?></h4>
-                                <div class="rating-beans"><?php echo str_repeat('☕', $review['rating']); ?></div>
-                            </div>
-                            <p class="review-text"><?php echo htmlspecialchars($review['review_text']); ?></p>
+                <?php foreach ($reviews as $review): ?>
+                    <div class="review-card" data-review-id="<?php echo $review['review_id']; ?>">
+                        <div class="review-header">
+                            <h4 onclick="window.location.href='cafe_profile.html?id=<?php echo $review['cafe_id']; ?>'"><?php echo htmlspecialchars($review['cafe_name']); ?></h4>
+                            <div class="rating-beans"><?php echo str_repeat('☕', $review['rating']); ?></div>
                         </div>
-                    <?php endforeach; ?>
+                        <p class="review-text"><?php echo htmlspecialchars($review['review_text']); ?></p>
+                        <button class="edit-review-btn" 
+                                data-review-id="<?php echo $review['review_id']; ?>" 
+                                data-review-text="<?php echo htmlspecialchars($review['review_text']); ?>" 
+                                data-review-rating="<?php echo $review['rating']; ?>">
+                            Edit Review
+                        </button>
+                    </div>
+                <?php endforeach; ?>
                 </div>
+
                 <div class="saved-grid">
                     <!-- Saved content will go here -->
                 </div>

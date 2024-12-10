@@ -17,6 +17,39 @@ body {
     height: 100vh;
 }
 
+.pre-quiz {
+    background-image: url('./assets/pre-quiz.png');
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    z-index: 1000; /* make sure its on top of everything */
+    width: 390px; 
+    max-width: 100%;
+    height: 840px;
+    max-height: 100%;
+    overflow: hidden; 
+    padding: 20px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+#startquiz {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    background-color: #582F1C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 40%;
+    height: 50px;
+}
+
+#startquiz:active {
+    transform: scale(0.95);
+}
+
 .quiz {
     background-color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 

@@ -540,7 +540,7 @@ body {
 }
 
 
-/* .modal {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -606,4 +606,4 @@ textarea {
 
 #submitbtn:active {
   transform: scale(0.95);
-} */
+}
